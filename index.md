@@ -1,5 +1,5 @@
 ---
-layout: portfolio
+layout: portfolio_1
 title: Elise Bell
 ---
 I'm a 3rd year PhD student in the [Department of Linguistics](http://www.linguistics.arizona.edu) at the University of Arizona. My primary research interests are in bilingual phonetics and phonology, focusing on Celtic and Native American languages.
