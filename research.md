@@ -3,13 +3,11 @@ layout: default_2
 title: Research
 ---
 ####Research
-
 I'm a member of the
 [SPAM Lab](http://www.u.arizona.edu/~hammond/spamho.html) at the UA
 Department of Linguistics.
 
 ####Welsh
-
 My current research focuses on the production of Welsh vowel length by
 Spanish-Welsh bilinguals in Argentina.
 
