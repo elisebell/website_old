@@ -2,7 +2,7 @@
 layout: default_3
 title: Teaching
 ---
-###Teaching
+<h3>Teaching</h3>
 While employed as a graduate teaching assistant at the University of
 Arizona, I have taught or TA'd the following classes:
 
