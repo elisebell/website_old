@@ -2,12 +2,12 @@
 layout: default_3
 title: Research
 ---
-####Research
+<h4>Research</h4>
 I'm a member of the
 [SPAM Lab](http://www.u.arizona.edu/~hammond/spamho.html) at the UA
 Department of Linguistics.
 
-####Welsh
+<h4>Welsh</h4>
 My current research focuses on the production of Welsh vowel length by
 Spanish-Welsh bilinguals in Argentina.
 
@@ -26,7 +26,7 @@ summarizing my results at the 2016 LSA Annual Meeting.
 I'm currently employed as a research assistant for [NSF grant #1453724](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1453724) 
 (SBE-RCUK: Experimental and Descriptive Investigations of Welsh (cym) Consonant Mutation).
 
-####North Australian Kriol
+<h4>North Australian Kriol</h4>
 I'm currently collaborating with Rikke Bundgaard-Nielsen and Brett
 Baker at the University of Melbourne on an investigation of the
 production of obstruent consonants by children acquiring North
@@ -34,13 +34,13 @@ Australian Kriol. Results from that research were presented at the
 Australian Linguistic Society 2015 meeting, and at the Linguistic
 Society of America 2016 Annual Meeting (slides [here]({{ site.url }}/website/EBell_LSA2016_EAPSI_Kriol.pdf)).
 
-####Scottish Gaelic
+<h4>Scottish Gaelic</h4>
 I previously worked with Andrew Carnie and Mike Hammond (and others)
 on two investigations of Scottish Gaelic, one examining initial
 consonant mutation, and one examining the processes of epenthesis and
 hiatus in the language.
 
-####Ngigua
+<h4>Ngigua</h4>
 In 2014, I worked with Heidi Harley and other students in Linguistic
 Elicitation and Documentation (LING 588) to
 document an underdocumented Mexican language, Ngigua. I investigated
