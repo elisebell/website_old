@@ -6,9 +6,27 @@
 </description>
     <link>http://elisebell.github.io/</link>
     <atom:link href="http://elisebell.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 Jul 2016 20:12:03 -0300</pubDate>
-    <lastBuildDate>Tue, 05 Jul 2016 20:12:03 -0300</lastBuildDate>
+    <pubDate>Tue, 05 Jul 2016 20:13:36 -0300</pubDate>
+    <lastBuildDate>Tue, 05 Jul 2016 20:13:36 -0300</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>My First Blog Post</title>
+        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build
+the site to see your changes. You can rebuild the site in many different ways, but
+the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and
+auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the
+convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter.
+Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 06 Mar 2015 00:00:00 -0300</pubDate>
+        <link>http://elisebell.github.io/2015/03/06/my-first-post.html</link>
+        <guid isPermaLink="true">http://elisebell.github.io/2015/03/06/my-first-post.html</guid>
+        
+        
+      </item>
     
   </channel>
 </rss>
