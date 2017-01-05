@@ -11,6 +11,9 @@ Department of Linguistics.
 My current research focuses on the production of Welsh vowel length by
 Spanish-Welsh bilinguals in Argentina.
 
+Results of a portion of my dissertation fieldwork in Argentina will be
+presented at LSA 2017 in Austin, TX as a [poster]( {{ site.url }}/website/EBell_LSA2017_poster.pdf).
+
 Much of my previous and ongoing research has relied on the Bangor
 Siarad and Bangor Patagonia corpora, developed by Bangor University's
 Centre for Research on Bilingualism and available at
