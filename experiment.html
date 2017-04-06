@@ -47,7 +47,7 @@
     }
   ];
 
-  var all_trials = jsPsych.randomization.repeat(test_stimuli, 10);
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 3);
 
   var post_trial_gap = function() {
     return Math.floor( Math.random() * 1500 ) + 750;
@@ -103,21 +103,47 @@
       subject_data.rt + "ms</strong>. Press any key to complete the "+
       "experiment. Thank you!</p>";
     }
-  };
+	};
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* pick a random condition for the subject at the start of the
+experiment */
+var condition_assignment = jsPsych.randomization.sample(['conditionA', 'conditionB', 'conditionC'],1)[0];
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' and a property called
+'condition' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id,
+  condition: condition_assignment
+});
 
   /* create experiment timeline array */
   var timeline = [];
   timeline.push(welcome_block);
   timeline.push(instructions_block);
   timeline.push(test_block);
-  timeline.push(debrief_block);
+timeline.push(debrief_block);
 
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'save_data.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* call the saveData function after the experiment is over */
   /* start the experiment */
   jsPsych.init({
     timeline: timeline,
-    on_finish: function() {
-      jsPsych.data.displayData();
-    }
-  });
+    on_finish: function(data){ saveData("filename.csv", jsPsych.data.dataAsCSV()) }
+});
+
+
+
 </script>
 </html>
