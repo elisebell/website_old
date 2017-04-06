@@ -140,7 +140,9 @@ function saveData(filename, filedata){
   /* start the experiment */
   jsPsych.init({
     timeline: timeline,
-    on_finish: function(data){ saveData("filename.csv", jsPsych.data.dataAsCSV()) }
+    on_finish: function() {
+      jsPsych.data.displayData();
+}
 });
 
 
