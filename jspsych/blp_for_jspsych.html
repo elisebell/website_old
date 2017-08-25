@@ -1,0 +1,157 @@
+// typed responses
+var first_page = {
+  type: 'survey-text',
+  questions: ["How old are you?", "What gender do you identify with?", "Current place of residence (City, Country)", "What is your highest level of formal education?", "What hand do you write with?"],
+};
+
+// page variables
+var qs_lang_history_welsh = [
+	"At what age did you <b>start learning</b> Welsh?",
+	"At what age did you <b>start to feel comfortable</b> using Welsh?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in Welsh?",
+	"How many years have you spent in <b>a country/region</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a family</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a work environment</b> where Welsh is spoken?"
+	];
+
+var qs_lang_history_english = [
+	"At what age did you <b>start learning</b> English?",
+	"At what age did you <b>start to feel comfortable</b> using English?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in English?",
+	"How many years have you spent in <b>a country/region</b> where English is spoken?",
+	"How many years have you spent in <b>a family</b> where English is spoken?",
+	"How many years have you spent in <b>a work environment</b> where English is spoken?"
+	];
+
+var qs_lang_use_1 = [
+	"1a: In an average week, what percentage of the time do you use <b>Welsh</b> with friends?",
+	"1b: In an average week, what percentage of the time do you use <b>English</b> with friends?",
+	];
+
+var qs_lang_use_2 = [
+	"2a: In an average week, what percentage of the time do you use <b>Welsh</b> with family?",
+	"2b: In an average week, what percentage of the time do you use <b>English</b> with family?",
+	];
+
+var qs_lang_use_3 = [
+	"3a: In an average week, what percentage of the time do you use <b>Welsh</b> at school/work?",
+	"3b: In an average week, what percentage of the time do you use <b>English</b> at school/work?"
+	];
+
+var qs_lang_use_4 = [
+	"4a: When you talk to yourself, how often do you talk to yourself in <b>Welsh</b>?",
+	"4b: When you talk to yourself, how often do you talk to yourself in <b>English</b>?",
+	];
+
+var qs_lang_use_5 = [
+	"5a: When you count, how often do you count in <b>Welsh</b>?",
+	"5b: When you count, how often do you count in <b>English</b>?"
+	];
+
+var qs_lang_prof_welsh = [
+	"How well do you <b>speak</b> Welsh?",
+	"How well do you <b>understand</b> Welsh?",
+	"How well do you <b>read</b> Welsh?",
+	"How well do you <b>write</b> Welsh?"
+	];
+
+var qs_lang_prof_english = [
+	"How well do you <b>speak</b> English?",
+	"How well do you <b>understand</b> English?",
+	"How well do you <b>read</b> English?",
+	"How well do you <b>write</b> English?"
+	];
+
+var qs_lang_att_welsh = [
+	"I feel like myself when I speak <b>Welsh</b>.",
+	"I identify with a <b>Welsh-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>Welsh</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>Welsh</b>."
+	];
+
+var qs_lang_att_english = [
+	"I feel like myself when I speak <b>English</b>.",
+	"I identify with a <b>English-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>English</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>English</b>."
+	];
+
+// response scales
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];
+
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];
+
+var scale_well = ["Not well at all", "Not well", "Not that well", "Neutral", "Okay", "Well", "Very well"];
+
+var scale_agree = ["Strongly Disagree", "Disagree", "Slightly Disagree", "Neutral", "Slightly Agree", "Agree", "Strongly Agree"];
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var use_page_1 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_1,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_2 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_2,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_3 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_3,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_4 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_4,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_5 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_5,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_welsh,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var proficiency_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_english,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_att_welsh,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+var attitudes_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_att_english,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};

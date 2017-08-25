@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script
+src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+<script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+<body>
+<div id="jspsych_target"></div>
+  </body>
+  <script>
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "Welcome to the experiment. Press any key to begin."
+  };
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>In this experiment, you will hear a sound " +
+"and see two words. " +
+        "</p><p>If you hear the word on the <strong>LEFT</strong>, " +
+        "press the letter F on the keyboard.</p>" +
+        "<p>If you hear the word on the <strong>RIGHT</strong>, press the letter J on the keyboard.</p>" +
+        "<p>Press any key to begin.</p>",
+    timing_post_trial: 2000
+};
+
+  /* define test block */
+
+  var test_stimuli = [
+{
+stimulus: "<p>bawc<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>cwymp<\p>",
+data: { response: 'real' }
+ }
+  ];
+
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+
+  // var post_trial_gap = function() {
+  //   return Math.floor( Math.random() * 1500 ) + 750;
+  // }
+
+  var test_block = {
+type: "single-stim",
+is-html: true,
+choices: ['y','n'],
+timing_response: 3000,
+timing_stim: -1,
+timing_post_trial: 1500,
+response_ends_trial: true,
+    on_finish: function(data){
+      var correct = false;
+      if(data.response == 'real' && data.key_press == 121 && data.rt > -1){
+        correct = true;
+      } else if(data.response == 'nonce' && data.key_press == 110 && data.rt > -1){
+        correct = true;
+}
+      jsPsych.data.addDataToLastTrial({correct: correct});
+    },
+    timeline: all_trials
+  };
+
+  /* define debrief block */
+
+  function getSubjectData() {
+
+    var trials = jsPsych.data.getTrialsOfType('single-audio');
+
+    var sum_rt = 0;
+    var correct_trial_count = 0;
+    var correct_rt_count = 0;
+    for (var i = 0; i < trials.length; i++) {
+      if (trials[i].correct == true) {
+        correct_trial_count++;
+        if(trials[i].rt > -1){
+          sum_rt += trials[i].rt;
+          correct_rt_count++;
+        }
+      }
+    }
+    return {
+      rt: Math.floor(sum_rt / correct_rt_count),
+      accuracy: Math.floor(correct_trial_count / trials.length * 100)
+    }
+  }
+
+  var debrief_block = {
+    type: "text",
+    text: function() {
+      var subject_data = getSubjectData();
+      return "<p>You responded correctly on " + subject_data.accuracy+"% of "+
+      "the trials.</p><p>Your average response time was <strong>" +
+      subject_data.rt + "ms</strong>. Press any key to complete the "+
+      "experiment. Thank you!</p>";
+    }
+	};
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* pick a random condition for the subject at the start of the
+experiment */
+var condition_assignment = jsPsych.randomization.sample(['conditionA', 'conditionB', 'conditionC'],1)[0];
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' and a property called
+'condition' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id,
+  condition: condition_assignment
+});
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(welcome_block);
+  timeline.push(instructions_block);
+  timeline.push(test_block);
+timeline.push(debrief_block);
+
+  /* start the experiment */
+jsPsych.init({
+display_element: $('#jspsych_target'),
+timeline: timeline,
+    on_finish: function() {
+      jsPsych.data.displayData();
+    }
+// on_finish: function() {
+// jsPsych.data.localSave('mydata.csv', 'csv');
+//            }
+});
+
+
+
+</script>
+</html>

@@ -1,0 +1,8 @@
+"rt","key_press","trial_type","trial_index","time_elapsed","internal_node_id","stimulus","response","correct"
+"790","32","text","0","793","0.0-0.0","","",""
+"650","74","text","1","2446","0.0-1.0","","",""
+"795","78","single-stim","2","5246","0.0-2.0-0.0","<p>gidser<p>","nonce","true"
+"337","89","single-stim","3","7087","0.0-2.0-1.0","<p>lliw<p>","real","true"
+"573","89","single-stim","4","9163","0.0-2.0-2.0","<p>ardal<p>","real","true"
+"250","78","single-stim","5","10916","0.0-2.0-3.0","<p>gorell<p>","nonce","true"
+"1199","13","text","6","13619","0.0-3.0","","",""

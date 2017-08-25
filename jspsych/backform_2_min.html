@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Backformation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jsPsych-master/jspsych.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-text.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-html.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-single-stim.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-survey-text.js"></script>
+    <link href="jsPsych-master/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+  </body>
+  <script>
+
+/*define consent block*/
+
+var check_consent = function(elem) {
+  if ($('#consent_checkbox').is(':checked')) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+// declare the block.
+var consent_block = {
+  type:'html',
+  url: "ceg_ver_consent_2.html",
+  cont_btn: "start",
+  check_fn: check_consent
+};
+
+//define initials block //
+var initials_block = {
+  type: 'survey-text',
+  questions: ["Please type your initials in the box and press ENTER."],
+  choices: ['enter']
+};
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "Welcome to the experiment. Press any key to begin."
+  };
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+	text: "<p>In this experiment, you will read a sentence" +
+      ", and then fill in the missing word in the next sentence.</p>" +
+      "<p>Press any key to begin.</p>"
+};
+
+  /* define survey block */
+
+var survey_trial = {
+  type: 'survey-text',
+  questions: ["How old are you?", "Where were you born?", "What age did you begin learning Welsh?", "How many years of school in Welsh have you had? (i.e. Welsh-medium education)"],
+  rows: [1,1,1,1],
+  columns: [50,100,50,50]
+};
+
+  /* define test block */
+
+    var test_stimuli = [
+      { stimulus: "Dyma ei gi. Mae ______ gyda fo.", data: { type: 'unambig' } },
+      { stimulus: "Dyma ei law. Mae ______ gyda fo.", data: { type: 'ambig' } },
+      { stimulus: "Dyma ei lyb. Mae ______ gyda fo.", data: { type: 'nonce' } },
+      { stimulus: "Dyma ei gath. Mae ______ gyda fo.", data: { type: 'unambig' } },
+      { stimulus: "Dyma ei lo. Mae ______ gyda fo.", data: { type: 'ambig' } },
+      { stimulus: "Dyma ei wb. Mae ______ gyda fo.", data: { type: 'nonce' } }
+
+    ];
+
+var test = {
+      type: "survey-text",
+      preamble: jsPsych.timelineVariable('stimulus'),
+      questions: ['Fill in the missing word.'],
+      choices: ['enter'],
+      data: jsPsych.timelineVariable('data')
+    }
+
+var test_procedure = {
+      timeline: [test],
+      timeline_variables: test_stimuli,
+      repetitions: 1,
+      randomize_order: true
+    }
+
+
+  var debrief_block = {
+    type: "text",
+    text: "Thank you! Press ENTER to exit the experiment."
+  };
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+  /* create experiment timeline array */
+  var timeline = [];
+  //timeline.push(welcome_block);
+  timeline.push(initials_block);
+  //timeline.push(consent_block);
+  timeline.push(instructions_block);
+  //timeline.push(survey_trial);
+  timeline.push(test_procedure);
+  timeline.push(debrief_block);
+
+  /* start the experiment */
+jsPsych.init({
+      timeline: timeline,
+	on_finish: function(){ saveData('bf-subject-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+    });
+
+</script>
+</html>

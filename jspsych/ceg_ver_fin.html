@@ -1,0 +1,1100 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lexical decision</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98928148-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </head>
+  <body>
+  </body>
+  <script>
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Welcome to the experiment.</p>" +
+		"<p>First you will answer some basic questions" +
+		" about your language background with Welsh and English.</p>" +
+		"Press any key to begin."
+  };
+
+/*define consent block*/
+
+var check_consent = function(elem) {
+  if ($('#consent_checkbox').is(':checked')) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+// declare the block
+var consent_block = {
+  type:'html',
+  url: "consent_3.html",
+  cont_btn: "start",
+  check_fn: check_consent
+};
+
+//define initials block //
+var initials_block = {
+  type: 'survey-text',
+  questions: ["Please type your initials in the box."],
+  choices: ['enter']
+};
+
+// typed responses
+var first_page = {
+  type: 'survey-text',
+  questions: ["How old are you?", "What gender do you identify with?", "Current place of residence (City, Country)", "What is your highest level of formal education?", "What hand do you write with?"],
+};
+
+// page variables
+var qs_lang_history_welsh = [
+	"At what age did you <b>start learning</b> Welsh?",
+	"At what age did you <b>start to feel comfortable</b> using Welsh?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in Welsh?",
+	"How many years have you spent in <b>a country/region</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a family</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a work environment</b> where Welsh is spoken?"
+	];
+
+var qs_lang_history_english = [
+	"At what age did you <b>start learning</b> English?",
+	"At what age did you <b>start to feel comfortable</b> using English?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in English?",
+	"How many years have you spent in <b>a country/region</b> where English is spoken?",
+	"How many years have you spent in <b>a family</b> where English is spoken?",
+	"How many years have you spent in <b>a work environment</b> where English is spoken?"
+	];
+
+var qs_lang_use_1 = [
+	"1a: In an average week, what percentage of the time do you use <b>Welsh</b> with friends?",
+	"1b: In an average week, what percentage of the time do you use <b>English</b> with friends?",
+	];
+
+var qs_lang_use_2 = [
+	"2a: In an average week, what percentage of the time do you use <b>Welsh</b> with family?",
+	"2b: In an average week, what percentage of the time do you use <b>English</b> with family?",
+	];
+
+var qs_lang_use_3 = [
+	"3a: In an average week, what percentage of the time do you use <b>Welsh</b> at school/work?",
+	"3b: In an average week, what percentage of the time do you use <b>English</b> at school/work?"
+	];
+
+var qs_lang_use_4 = [
+	"4a: When you talk to yourself, how often do you talk to yourself in <b>Welsh</b>?",
+	"4b: When you talk to yourself, how often do you talk to yourself in <b>English</b>?",
+	];
+
+var qs_lang_use_5 = [
+	"5a: When you count, how often do you count in <b>Welsh</b>?",
+	"5b: When you count, how often do you count in <b>English</b>?"
+	];
+
+var qs_lang_prof_welsh = [
+	"How well do you <b>speak</b> Welsh?",
+	"How well do you <b>understand</b> Welsh?",
+	"How well do you <b>read</b> Welsh?",
+	"How well do you <b>write</b> Welsh?"
+	];
+
+var qs_lang_prof_english = [
+	"How well do you <b>speak</b> English?",
+	"How well do you <b>understand</b> English?",
+	"How well do you <b>read</b> English?",
+	"How well do you <b>write</b> English?"
+	];
+
+var qs_lang_att_welsh = [
+	"I feel like myself when I speak <b>Welsh</b>.",
+	"I identify with a <b>Welsh-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>Welsh</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>Welsh</b>."
+	];
+
+var qs_lang_att_english = [
+	"I feel like myself when I speak <b>English</b>.",
+	"I identify with a <b>English-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>English</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>English</b>."
+	];
+
+// response scales
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];
+
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];
+
+var scale_well = ["Not well at all", "Not well", "Not that well", "Neutral", "Okay", "Well", "Very well"];
+
+var scale_agree = ["Strongly Disagree", "Disagree", "Slightly Disagree", "Neutral", "Slightly Agree", "Agree", "Strongly Agree"];
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var use_page_1 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_1,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_2 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_2,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_3 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_3,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_4 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_4,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_5 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_5,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_welsh,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var proficiency_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_english,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_att_welsh,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+var attitudes_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_att_english,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>Thank you for completing the background survey.</p>" +
+	"<p>In this experiment, you will see a word on the screen." +
+        "</p><p>If the word is a <strong>REAL</strong> word of Welsh, " +
+        "press the RIGHT ARROW on the keyboard.</p>" +
+        "<p>If the word is <strong>NOT</strong> a real word of Welsh, " +
+        "press the LEFT ARROW on the keyboard.</p>" +
+        "<p>Respond as quickly as possible.</p>" +
+        "<p>Press any key to begin.</p>",
+    timing_post_trial: 2000
+};
+
+  /* define test block */
+
+var test_stims_mini = [
+{
+stimulus: "<h1 align='center'>lliw</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>tŷ</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>bleh</h1>",
+data: { response: 'nonce' }
+ }
+];
+
+var test_stimuli = [
+{
+stimulus: "<h1 align='center'>lliw</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ardal</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>arwydd</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ateb</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>brenin</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>cam</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>chwaer</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>criw</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>cyfan</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>diffyg</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>dydd</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>effaith</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>elfen</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ffaith</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ffwrdd</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwaith</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwynt</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>haf</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>lle</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>llyfr</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>man</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>modd</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>pen</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>safon</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>tro</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>tŷ</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>tymor</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>wythnos</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ymyl</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ystafell</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>adladd</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>ael</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>afanc</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>affwys</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>barcut</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>boi</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>brechdan</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>broga</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>celain</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>cennad</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>collen</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>congl</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>craith</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>cur</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>pwyll</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>dug</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>dwli</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>fforch</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>golud</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwaddol</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwefr</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwmpas</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>huddygl</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>lledred</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>morfa</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>myfyr</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>peswch</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>taflen</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>trydar</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>tuth</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>antur</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>awdl</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>awgrym</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>bendith</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>bwlch</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>bys</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>cadair</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>canran</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>damwain</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>cyllid</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>dewis</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>egni</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>calon</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwres</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>gwybod</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>llafur</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>llinell</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>llinyn</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>lwc</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>meddyg</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>mesur</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>modryb</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>nodyn</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>pennod</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>plwyf</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>pwll</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>rheol</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>saer</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>twf</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>urddas</h1>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<h1 align='center'>rhab</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>llaip</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>griat</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>raesg</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>drait</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>greag</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>rab</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>laep</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>llar</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>geb</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>meng</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>biar</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>diorth</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>tiorth</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>peild</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>blaic</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>pid</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>loas</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>clant</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>glim</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>diop</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>lien</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>gral</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>glear</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>gloic</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hion</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>mimp</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>sorc</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hic</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>soes</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>greab</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>lliath</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hieth</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>glirt</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>glaec</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hod</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>leoc</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>ller</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>llirt</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>fildran</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>totog</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>estoc</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>gity</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>calys</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>mynhyn</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>rithon</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>lwcwm</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>pyscad</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>lwystat</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>llyfmac</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>papeg</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>ynlef</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>eldos</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>bacan</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hynner</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>colaf</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>tatmun</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>cyfeg</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>odllun</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>dingen</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>goltod</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>nernod</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hudell</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>aelhyd</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>rwed</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>llefcal</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>plentef</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>pobaf</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>pwyl</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>golen</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>halys</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>nar</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>onar</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>ladtaf</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>hydhal</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>menwg</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>amblod</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>sbecrws</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>odorhag</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>ranteul</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>adser</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>ynair</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>refrhos</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>manwedd</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>fwdof</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>ewythrod</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>wyddgol</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>rhewgor</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>gorell</h1>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<h1 align='center'>gidser</h1>",
+data: { response: 'nonce' }
+ }
+  ];
+
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+
+  var post_trial_gap = function() {
+    return Math.floor( Math.random() * 1500 ) + 750;
+	}	
+
+var test_block = {
+    type: "single-stim",
+    choices: [37, 39],
+    is_html: true,
+    timing_response: -1,
+    timing_post_trial: post_trial_gap,
+    response_ends_trial: true,
+    on_finish: function(data){
+      var correct = false;
+      if(data.response == 'real' && data.key_press == 39 && data.rt > -1){
+        correct = true;
+      } else if(data.response == 'nonce' && data.key_press == 37 && data.rt > -1){
+        correct = true;
+}
+      jsPsych.data.addDataToLastTrial({correct: correct});
+    },
+    timeline: all_trials
+  };
+
+function getSubjectData() {
+
+  var trials = jsPsych.data.getTrialsOfType('single-stim');
+
+  var sum_rt = 0;
+  var correct_trial_count = 0;
+  var correct_rt_count = 0;
+  for (var i = 0; i < trials.length; i++) {
+    if (trials[i].correct == true) {
+      correct_trial_count++;
+      if(trials[i].rt > -1){
+        sum_rt += trials[i].rt;
+        correct_rt_count++;
+      }
+    }
+  }
+  return {
+    rt: Math.floor(sum_rt / correct_rt_count),
+    accuracy: Math.floor(correct_trial_count / trials.length * 100)
+  }
+}
+
+var perc_correct = {
+  type: "text",
+  text: function() {
+    var subject_data = getSubjectData();
+    return "<p>You responded correctly on "+subject_data.accuracy+"% of "+
+    "the trials.</p><p>Your average response time was <strong>" +
+    subject_data.rt + "ms</strong>. Press any key to complete the "+
+    "experiment. Thank you!</p>";
+  }
+};
+
+var debrief_block = {
+	type: 'html',
+	url: 'thank_you1.html',
+	on_finish: function() {exit()}
+};
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+var save_data = {
+	type: 'call-function',
+	func: function(data){
+           saveData('ceg-ver-'+subject_id+'.csv', jsPsych.data.dataAsCSV());
+            }
+	};
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(consent_block);
+  timeline.push(initials_block);
+  timeline.push(welcome_block);
+  timeline.push(first_page);
+  timeline.push(history_page_welsh);
+  timeline.push(history_page_english);
+  timeline.push(use_page_1);
+  timeline.push(use_page_2);
+  timeline.push(use_page_3);
+  timeline.push(use_page_4);
+  timeline.push(use_page_5);
+  timeline.push(proficiency_page_welsh);
+  timeline.push(proficiency_page_english);
+  timeline.push(attitudes_page_welsh);
+  timeline.push(attitudes_page_english);
+  timeline.push(instructions_block);
+  timeline.push(test_block);
+  timeline.push(perc_correct);
+  timeline.push(save_data);
+  timeline.push(debrief_block);
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline //,
+	//on_finish: function(){ saveData('ceg-ver-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+});
+</script>
+</html>

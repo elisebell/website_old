@@ -1,0 +1,1085 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lexical decision</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98928148-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </head>
+  <body>
+  </body>
+  <script>
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Welcome to the experiment.</p>" +
+		"<p>First you will answer some basic questions" +
+		" about your language background with Welsh and English.</p>" +
+		"Press any key to begin."
+  };
+
+/*define consent block*/
+
+var check_consent = function(elem) {
+  if ($('#consent_checkbox').is(':checked')) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+// declare the block
+var consent_block = {
+  type:'html',
+  url: "consent_3.html",
+  cont_btn: "start",
+  check_fn: check_consent
+};
+
+//define initials block //
+var initials_block = {
+  type: 'survey-text',
+  questions: ["Please type your initials in the box and press ENTER."],
+  choices: ['enter']
+};
+
+// typed responses
+var first_page = {
+  type: 'survey-text',
+  questions: ["How old are you?", "What gender do you identify with?", "Current place of residence (City, Country)", "What is your highest level of formal education?", "What hand do you write with?"],
+};
+
+// page variables
+var qs_lang_history_welsh = [
+	"At what age did you <b>start learning</b> Welsh?",
+	"At what age did you <b>start to feel comfortable</b> using Welsh?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in Welsh?",
+	"How many years have you spent in <b>a country/region</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a family</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a work environment</b> where Welsh is spoken?"
+	];
+
+var qs_lang_history_english = [
+	"At what age did you <b>start learning</b> English?",
+	"At what age did you <b>start to feel comfortable</b> using English?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in English?",
+	"How many years have you spent in <b>a country/region</b> where English is spoken?",
+	"How many years have you spent in <b>a family</b> where English is spoken?",
+	"How many years have you spent in <b>a work environment</b> where English is spoken?"
+	];
+
+var qs_lang_use_1 = [
+	"1a: In an average week, what percentage of the time do you use <b>Welsh</b> with friends?",
+	"1b: In an average week, what percentage of the time do you use <b>English</b> with friends?",
+	];
+
+var qs_lang_use_2 = [
+	"2a: In an average week, what percentage of the time do you use <b>Welsh</b> with family?",
+	"2b: In an average week, what percentage of the time do you use <b>English</b> with family?",
+	];
+
+var qs_lang_use_3 = [
+	"3a: In an average week, what percentage of the time do you use <b>Welsh</b> at school/work?",
+	"3b: In an average week, what percentage of the time do you use <b>English</b> at school/work?"
+	];
+
+var qs_lang_use_4 = [
+	"4a: When you talk to yourself, how often do you talk to yourself in <b>Welsh</b>?",
+	"4b: When you talk to yourself, how often do you talk to yourself in <b>English</b>?",
+	];
+
+var qs_lang_use_5 = [
+	"5a: When you count, how often do you count in <b>Welsh</b>?",
+	"5b: When you count, how often do you count in <b>English</b>?"
+	];
+
+var qs_lang_prof_welsh = [
+	"How well do you <b>speak</b> Welsh?",
+	"How well do you <b>understand</b> Welsh?",
+	"How well do you <b>read</b> Welsh?",
+	"How well do you <b>write</b> Welsh?"
+	];
+
+var qs_lang_prof_english = [
+	"How well do you <b>speak</b> English?",
+	"How well do you <b>understand</b> English?",
+	"How well do you <b>read</b> English?",
+	"How well do you <b>write</b> English?"
+	];
+
+var qs_lang_att_welsh = [
+	"I feel like myself when I speak <b>Welsh</b>.",
+	"I identify with a <b>Welsh-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>Welsh</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>Welsh</b>."
+	];
+
+var qs_lang_att_english = [
+	"I feel like myself when I speak <b>English</b>.",
+	"I identify with a <b>English-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>English</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>English</b>."
+	];
+
+// response scales
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];
+
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];
+
+var scale_well = ["Not well at all", "Not well", "Not that well", "Neutral", "Okay", "Well", "Very well"];
+
+var scale_agree = ["Strongly Disagree", "Disagree", "Slightly Disagree", "Neutral", "Slightly Agree", "Agree", "Strongly Agree"];
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var use_page_1 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_1,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_2 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_2,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_3 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_3,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_4 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_4,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_5 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_5,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_welsh,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var proficiency_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_english,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_att_welsh,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+var attitudes_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_att_english,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>Thank you for completing the background survey.</p>" +
+	"<p>In this experiment, you will see a word on the screen." +
+        "</p><p>If the word is <strong>REAL</strong>, " +
+        "press the RIGHT ARROW on the keyboard.</p>" +
+        "<p>If the word is <strong>NOT REAL</strong>, " +
+        "press the LEFT ARROW on the keyboard.</p>" +
+        "<p>Respond as quickly as possible.</p>" +
+        "<p>Press any key to begin.</p>",
+    timing_post_trial: 2000
+};
+
+  /* define test block */
+
+var test_stimuli = [
+{
+stimulus: "<p>lliw<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ardal<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>arwydd<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ateb<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>brenin<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>cam<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>chwaer<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>criw<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>cyfan<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>diffyg<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>dydd<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>effaith<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>elfen<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ffaith<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ffwrdd<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwaith<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwynt<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>haf<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>lle<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>llyfr<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>man<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>modd<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>pen<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>safon<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>tro<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ty<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>tymor<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>wythnos<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ymyl<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ystafell<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>adladd<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>ael<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>afanc<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>affwys<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>barcut<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>boi<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>brechdan<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>broga<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>celain<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>cennad<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>collen<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>congl<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>craith<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>cur<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>pwyll<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>dug<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>dwli<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>fforch<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>golud<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwaddol<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwefr<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwmpas<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>huddygl<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>lledred<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>morfa<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>myfyr<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>peswch<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>taflen<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>trydar<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>tuth<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>antur<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>awdl<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>awgrym<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>bendith<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>bwlch<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>bys<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>cadair<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>canran<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>damwain<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>cyllid<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>dewis<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>egni<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>calon<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwres<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>gwybod<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>llafur<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>llinell<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>llinyn<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>lwc<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>meddyg<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>mesur<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>modryb<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>nodyn<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>pennod<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>plwyf<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>pwll<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>rheol<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>saer<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>twf<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>urddas<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>rhab<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>llaip<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>griat<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>raesg<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>drait<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>greag<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>rab<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>laep<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>llar<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>geb<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>meng<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>biar<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>diorth<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>tiorth<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>peild<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>blaic<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>pid<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>loas<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>clant<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>glim<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>diop<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>lien<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>gral<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>glear<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>gloic<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hion<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>mimp<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>sorc<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hic<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>soes<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>greab<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>lliath<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hieth<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>glirt<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>glaec<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hod<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>leoc<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>ller<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>llirt<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>fildran<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>totog<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>estoc<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>gity<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>calys<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>mynhyn<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>rithon<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>lwcwm<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>pyscad<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>lwystat<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>llyfmac<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>papeg<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>ynlef<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>eldos<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>bacan<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hynner<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>colaf<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>tatmun<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>cyfeg<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>odllun<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>dingen<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>goltod<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>nernod<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hudell<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>aelhyd<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>rwed<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>llefcal<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>plentef<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>pobaf<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>pwyl<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>golen<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>halys<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>nar<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>onar<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>ladtaf<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>hydhal<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>menwg<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>amblod<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>sbecrws<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>odorhag<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>ranteul<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>adser<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>ynair<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>refrhos<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>manwedd<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>fwdof<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>ewythrod<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>wyddgol<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>rhewgor<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>gorell<\p>",
+data: { response: 'nonce' }
+ },
+{
+stimulus: "<p>gidser<\p>",
+data: { response: 'nonce' }
+ }
+  ];
+
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+
+  var post_trial_gap = function() {
+    return Math.floor( Math.random() * 1500 ) + 750;
+	}	
+
+var test_block = {
+    type: "single-stim",
+    choices: [37, 39],
+    is_html: true,
+    timing_response: -1,
+    timing_post_trial: post_trial_gap,
+    response_ends_trial: true,
+    on_finish: function(data){
+      var correct = false;
+      if(data.response == 'real' && data.key_press == 39 && data.rt > -1){
+        correct = true;
+      } else if(data.response == 'nonce' && data.key_press == 37 && data.rt > -1){
+        correct = true;
+}
+      jsPsych.data.addDataToLastTrial({correct: correct});
+    },
+    timeline: all_trials
+  };
+
+function getSubjectData() {
+
+  var trials = jsPsych.data.getTrialsOfType('single-stim');
+
+  var sum_rt = 0;
+  var correct_trial_count = 0;
+  var correct_rt_count = 0;
+  for (var i = 0; i < trials.length; i++) {
+    if (trials[i].correct == true) {
+      correct_trial_count++;
+      if(trials[i].rt > -1){
+        sum_rt += trials[i].rt;
+        correct_rt_count++;
+      }
+    }
+  }
+  return {
+    rt: Math.floor(sum_rt / correct_rt_count),
+    accuracy: Math.floor(correct_trial_count / trials.length * 100)
+  }
+}
+
+var perc_correct = {
+  type: "text",
+  text: function() {
+    var subject_data = getSubjectData();
+    return "<p>You responded correctly on "+subject_data.accuracy+"% of "+
+    "the trials.</p><p>Your average response time was <strong>" +
+    subject_data.rt + "ms</strong>. Press any key to complete the "+
+    "experiment. Thank you!</p>";
+  }
+};
+
+var debrief_block = {
+	type: 'html',
+	url: 'thank_you1.html',
+	on_finish: function() {exit()}
+};
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+var save_data = {
+	type: 'call-function',
+	func: function(data){
+           saveData('ceg-ver-'+subject_id+'.csv', jsPsych.data.dataAsCSV());
+            }
+	};
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(consent_block);
+  timeline.push(initials_block);
+  timeline.push(welcome_block);
+  timeline.push(first_page);
+  timeline.push(history_page_welsh);
+  timeline.push(history_page_english);
+  timeline.push(use_page_1);
+  timeline.push(use_page_2);
+  timeline.push(use_page_3);
+  timeline.push(use_page_4);
+  timeline.push(use_page_5);
+  timeline.push(proficiency_page_welsh);
+  timeline.push(proficiency_page_english);
+  timeline.push(attitudes_page_welsh);
+  timeline.push(attitudes_page_english);
+  timeline.push(instructions_block);
+  timeline.push(test_block);
+  timeline.push(perc_correct);
+  timeline.push(save_data);
+  timeline.push(debrief_block);
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline //,
+	//on_finish: function(){ saveData('ceg-ver-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+});
+</script>
+</html>

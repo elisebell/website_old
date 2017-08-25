@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lexical decision</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jsPsych-master/jspsych.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-text.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-html.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-survey-text.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-survey-likert.js"></script>
+    <script src="jsPsych-master/plugins/jspsych-single-stim.js"></script>
+    <link href="jsPsych-master/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+  </body>
+  <script>
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Welcome to the experiment.</p>" +
+		"<p>First you will answer some basic questions" +
+		" about your language background with Welsh and English.</p>" +
+		"Press any key to begin."
+  };
+
+/*define consent block*/
+
+var check_consent = function(elem) {
+  if ($('#consent_checkbox').is(':checked')) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+// declare the block
+var consent_block = {
+  type:'html',
+  url: "consent_3.html",
+  cont_btn: "start",
+  check_fn: check_consent
+};
+
+//define initials block //
+var initials_block = {
+  type: 'survey-text',
+  questions: ["Please type your initials in the box and press ENTER."],
+  choices: ['enter']
+};
+
+// page variables
+var qs_lang_history = [
+	"At what age did you <b>start learning</b> Welsh?",
+	"At what age did you <b>start learning</b> English?",
+	"At what age did you <b>start to feel comfortable</b> using Welsh?",
+	"At what age did you <b>start to feel comfortable</b> using English?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in Welsh?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in English?",
+	"How many years have you spent in <b>a country/region</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a country/region</b> where English is spoken?",
+	"How many years have you spent in <b>a family</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a family</b> where English is spoken?",
+	"How many years have you spent in <b>a work environment</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a work environment</b> where English is spoken?"
+	];
+
+var qs_lang_use = [
+	"In an average week, what percentage of the time do you use Welsh <b>with friends</b>?",
+	"In an average week, what percentage of the time do you use English <b>with friends</b>?",
+	"In an average week, what percentage of the time do you use Welsh <b>with family</b>?",
+	"In an average week, what percentage of the time do you use English <b>with family</b>?",
+	"In an average week, what percentage of the time do you use Welsh <b>at school/work</b>?",
+	"In an average week, what percentage of the time do you use English <b>at school/work</b>?",
+	"When you talk to yourself, how often do you <b>talk to yourself</b> in Welsh?",
+	"When you talk to yourself, how often do you <b>talk to yourself</b> in English?",
+	"When you count, how often do you <b>count</b> in Welsh?",
+	"When you count, how often do you <b>count</b> in English?"
+	];
+
+var qs_lang_prof = [
+	"How well do you <b>speak</b> Welsh?",
+	"How well do you <b>speak</b> English?",
+	"How well do you <b>understand</b> Welsh?",
+	"How well do you <b>understand</b> English?",
+	"How well do you <b>read</b> Welsh?",
+	"How well do you <b>read</b> English?",
+	"How well do you <b>write</b> Welsh?",
+	"How well do you <b>write</b> English?"
+	];
+
+var qs_lang_att = [
+	"I feel like myself when I speak <b>Welsh</b>.",
+	"I feel like myself when I speak <b>English</b>.",
+	"I identify with a <b>Welsh-speaking</b> culture.",
+	"I identify with a <b>English-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>Welsh</b> like a native speaker.",
+	"It is important to me to use (or eventually use) <b>English</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>Welsh</b>.",
+	"I want others to think I am a native speaker of <b>English</b>."
+	];
+
+// response scales
+var scale_0_20 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];
+
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];
+
+var scale_well = ["Not well at all", "Not well", "Not that well", "Neutral", "Okay", "Well", "Very well"];
+
+var scale_agree = ["Strongly Disagree", "Disagree", "Slightly Disagree", "Neutral", "Slightly Agree", "Agree", "Strongly Agree"];
+
+var history_page = {
+    type: 'survey-likert',
+    questions: qs_lang_history,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+// need to tell people each pair should add up to 100%
+// add blank lines after submit button on each page - also make it start at the top of the page
+
+var use_page = {
+    type: 'survey-likert',
+    questions: qs_lang_use,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page = {
+    type: 'survey-likert',
+    questions: qs_lang_prof,
+    labels: [scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page = {
+    type: 'survey-likert',
+    questions: qs_lang_att,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>Thank you for completing the background survey.</p>" +
+	"<p>In this experiment, you will see a word on the screen." +
+        "</p><p>If the word is <strong>REAL</strong>, " +
+        "press the letter Y (yes) on the keyboard.</p>" +
+        "<p>If the word is <strong>NOT REAL</strong>, " +
+        "press the letter N (no) on the keyboard.</p>" +
+        "<p>Respond as quickly as possible.</p>" +
+        "<p>Press any key to begin.</p>",
+    timing_post_trial: 2000
+};
+
+  /* define test block */
+
+  var test_stimuli = [
+{
+stimulus: "<p>word<\p>",
+data: { response: 'real' }
+ },
+{
+stimulus: "<p>nonword<\p>",
+data: { response: 'nonce' }
+ }
+  ];
+
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+
+  var post_trial_gap = function() {
+    return Math.floor( Math.random() * 1500 ) + 750;
+	}	
+
+var test_block = {
+    type: "single-stim",
+    choices: ['y', 'n'],
+    is_html: true,
+    timing_response: -1,
+    timing_post_trial: 1500,
+    response_ends_trial: true,
+    on_finish: function(data){
+      var correct = false;
+      if(data.response == 'real' && data.key_press == 89 && data.rt > -1){
+        correct = true;
+      } else if(data.response == 'nonce' && data.key_press == 78 && data.rt > -1){
+        correct = true;
+}
+      jsPsych.data.addDataToLastTrial({correct: correct});
+    },
+    timeline: all_trials
+  };
+
+var debrief_block = {
+	type: "text",
+	text: "Press any key to complete the experiment. Thank you!"
+};
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(consent_block);
+  timeline.push(initials_block);
+  timeline.push(welcome_block);
+  timeline.push(history_page);
+  timeline.push(use_page);
+  timeline.push(proficiency_page);
+  timeline.push(attitudes_page);
+  timeline.push(instructions_block);
+  timeline.push(test_block);
+  timeline.push(debrief_block);
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline,
+	on_finish: function(){ saveData('test-subject-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+});
+</script>
+</html>
