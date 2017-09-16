@@ -1,0 +1,503 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Backformation</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98928148-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </head>
+  <body>
+  </body>
+  <script>
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Welcome to the experiment.</p>" +
+		"<p>First you will answer some basic questions" +
+		" about your language background with Welsh and English.</p>" +
+		"Press any key to begin."
+  };
+
+/*define consent block*/
+
+var check_consent = function(elem) {
+  if ($('#consent_checkbox').is(':checked')) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+// declare the block
+var consent_block = {
+  type:'html',
+  url: "consent_3.html",
+  cont_btn: "start",
+  check_fn: check_consent
+};
+
+//define initials block //
+var initials_block = {
+  type: 'survey-text',
+  questions: ["Please type your initials in the box."],
+  choices: ['enter']
+};
+
+// typed responses
+var first_page = {
+  type: 'survey-text',
+  questions: ["How old are you?", "What gender do you identify with?", "Current place of residence (City, Country)", "What is your highest level of formal education?", "What hand do you write with?"],
+};
+
+// page variables
+var qs_lang_history_welsh = [
+	"At what age did you <b>start learning</b> Welsh?",
+	"At what age did you <b>start to feel comfortable</b> using Welsh?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in Welsh?",
+	"How many years have you spent in <b>a country/region</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a family</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a work environment</b> where Welsh is spoken?"
+	];
+
+var qs_lang_history_english = [
+	"At what age did you <b>start learning</b> English?",
+	"At what age did you <b>start to feel comfortable</b> using English?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in English?",
+	"How many years have you spent in <b>a country/region</b> where English is spoken?",
+	"How many years have you spent in <b>a family</b> where English is spoken?",
+	"How many years have you spent in <b>a work environment</b> where English is spoken?"
+	];
+
+var qs_lang_use_1 = [
+	"1a: In an average week, what percentage of the time do you use <b>Welsh</b> with friends?",
+	"1b: In an average week, what percentage of the time do you use <b>English</b> with friends?",
+	];
+
+var qs_lang_use_2 = [
+	"2a: In an average week, what percentage of the time do you use <b>Welsh</b> with family?",
+	"2b: In an average week, what percentage of the time do you use <b>English</b> with family?",
+	];
+
+var qs_lang_use_3 = [
+	"3a: In an average week, what percentage of the time do you use <b>Welsh</b> at school/work?",
+	"3b: In an average week, what percentage of the time do you use <b>English</b> at school/work?"
+	];
+
+var qs_lang_use_4 = [
+	"4a: When you talk to yourself, how often do you talk to yourself in <b>Welsh</b>?",
+	"4b: When you talk to yourself, how often do you talk to yourself in <b>English</b>?",
+	];
+
+var qs_lang_use_5 = [
+	"5a: When you count, how often do you count in <b>Welsh</b>?",
+	"5b: When you count, how often do you count in <b>English</b>?"
+	];
+
+var qs_lang_prof_welsh = [
+	"How well do you <b>speak</b> Welsh?",
+	"How well do you <b>understand</b> Welsh?",
+	"How well do you <b>read</b> Welsh?",
+	"How well do you <b>write</b> Welsh?"
+	];
+
+var qs_lang_prof_english = [
+	"How well do you <b>speak</b> English?",
+	"How well do you <b>understand</b> English?",
+	"How well do you <b>read</b> English?",
+	"How well do you <b>write</b> English?"
+	];
+
+var qs_lang_att_welsh = [
+	"I feel like myself when I speak <b>Welsh</b>.",
+	"I identify with a <b>Welsh-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>Welsh</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>Welsh</b>."
+	];
+
+var qs_lang_att_english = [
+	"I feel like myself when I speak <b>English</b>.",
+	"I identify with a <b>English-speaking</b> culture.",
+	"It is important to me to use (or eventually use) <b>English</b> like a native speaker.",
+	"I want others to think I am a native speaker of <b>English</b>."
+	];
+
+// response scales
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];
+
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];
+
+var scale_well = ["Not well at all", "Not well", "Not that well", "Neutral", "Okay", "Well", "Very well"];
+
+var scale_agree = ["Strongly Disagree", "Disagree", "Slightly Disagree", "Neutral", "Slightly Agree", "Agree", "Strongly Agree"];
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var use_page_1 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_1,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_2 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_2,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_3 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_3,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_4 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_4,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_5 = {
+    type: 'survey-likert',
+    preamble: "Please ensure that percentages add up to 100.",
+    questions: qs_lang_use_5,
+    labels: [scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_welsh,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var proficiency_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_english,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_att_welsh,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+var attitudes_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_att_english,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>Thank you for completing the background survey.</p>" +
+	"<p>In this experiment, you will read a sentence" +
+      ", and then answer a question about it by typing your response.</p>" +
+      "<p>Some of the sentences will contain nonsense words.</p>" +
+      "<p>Press any key to begin.</p>",
+    timing_post_trial: 2000
+};
+
+  /* define test block */
+
+    var test_stimuli = [
+{ preamble: "Mae Gareth yn aros am hoesg.<br>Am beth mae o'n aros?",
+data: { mut: '0', ambig: '0', item: 'hoesg' } },
+{ preamble: "Mae Alys yn chwilio am noesg.<br>Am beth mae hi'n chwilio?",
+data: { mut: '0', ambig: '0', item: 'noesg' } },
+{ preamble: "Mae Ifan yn gwrando ar neth.<br>Beth mae o'n clywed?",
+data: { mut: '0', ambig: '0', item: 'neth' } },
+{ preamble: "Mae Sioned yn edrych ar haib.<br>Beth mae hi'n gweld?",
+data: { mut: '0', ambig: '0', item: 'haib' } },
+{ preamble: "Oedd Meredydd wedi sylwi ar hacon.<br>Beth oedd o wedi sylwi arno?",
+data: { mut: '0', ambig: '0', item: 'hacon' } },
+{ preamble: "Rhaid iddyn nhw gadw llygad ar heith.<br>Beth mae angen iddyn nhw gadw llygad arno?",
+data: { mut: '0', ambig: '0', item: 'heith' } },
+{ preamble: "Roedd Gwen yn edrych ar seton.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '0', ambig: '0', item: 'seton' } },
+{ preamble: "Does dim sôn am sorc.<br>Am beth does dim sôn?",
+data: { mut: '0', ambig: '0', item: 'sorc' } },
+{ preamble: "Roedd Ffion yn meddwl am mog.<br>Am beth oedd hi'n meddwl?",
+data: { mut: '0', ambig: '0', item: 'mog' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am nebos.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '0', ambig: '0', item: 'nebos' } },
+{ preamble: "Roedd Lowri yn poeni am moic.<br>Am beth oedd hi'n poeni?",
+data: { mut: '0', ambig: '0', item: 'moic' } },
+{ preamble: "Mae Dylan eisiau dysgu am hos.<br>Am beth mae o eisiau dysgu?",
+data: { mut: '0', ambig: '0', item: 'hos' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am hith.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '0', ambig: '0', item: 'hith' } },
+{ preamble: "Gofynodd Bronwen am hic.<br>Am beth ofynnodd hi?",
+data: { mut: '0', ambig: '0', item: 'hic' } },
+{ preamble: "Daeth Huw at hirod.<br>At beth ddaeth o?",
+data: { mut: '0', ambig: '0', item: 'hirod' } },
+{ preamble: "Mae Gareth yn aros am neng.<br>Am beth mae o'n aros?",
+data: { mut: '0', ambig: '0', item: 'neng' } },
+{ preamble: "Mae Sioned yn edrych ar heg.<br>Beth mae hi'n gweld?",
+data: { mut: '0', ambig: '0', item: 'heg' } },
+{ preamble: "Roedd Gwen yn edrych ar ses.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '0', ambig: '0', item: 'ses' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am sipro.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '0', ambig: '0', item: 'sipro' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am meng.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '0', ambig: '0', item: 'meng' } },
+{ preamble: "Mae Gareth yn aros am gaet.<br>Am beth mae o'n aros?",
+data: { mut: '1', ambig: '0', item: 'gaet' } },
+{ preamble: "Mae Alys yn chwilio am doeg.<br>Am beth mae hi'n chwilio?",
+data: { mut: '1', ambig: '0', item: 'doeg' } },
+{ preamble: "Mae Ifan yn gwrando ar geb.<br>Beth mae o'n clywed?",
+data: { mut: '1', ambig: '0', item: 'geb' } },
+{ preamble: "Mae Sioned yn edrych ar gein.<br>Beth mae hi'n gweld?",
+data: { mut: '1', ambig: '0', item: 'gein' } },
+{ preamble: "Oedd Meredydd wedi sylwi ar irag.<br>Beth oedd o wedi sylwi arno?",
+data: { mut: '1', ambig: '0', item: 'irag' } },
+{ preamble: "Rhaid iddyn nhw gadw llygad ar bistar.<br>Beth mae angen iddyn nhw gadw llygad arno?",
+data: { mut: '1', ambig: '0', item: 'bistar' } },
+{ preamble: "Roedd Gwen yn edrych ar gnil.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '1', ambig: '0', item: 'gnil' } },
+{ preamble: "Does dim sôn am deb.<br>Am beth does dim sôn?",
+data: { mut: '1', ambig: '0', item: 'deb' } },
+{ preamble: "Roedd Ffion yn meddwl am gith.<br>Am beth oedd hi'n meddwl?",
+data: { mut: '1', ambig: '0', item: 'gith' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am beim.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '1', ambig: '0', item: 'beim' } },
+{ preamble: "Roedd Lowri yn poeni am drath.<br>Am beth oedd hi'n poeni?",
+data: { mut: '1', ambig: '0', item: 'drath' } },
+{ preamble: "Mae Dylan eisiau dysgu am drait.<br>Am beth mae o eisiau dysgu?",
+data: { mut: '1', ambig: '0', item: 'drait' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am baep.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '1', ambig: '0', item: 'baep' } },
+{ preamble: "Gofynodd Bronwen am dibeth.<br>Am beth ofynnodd hi?",
+data: { mut: '1', ambig: '0', item: 'dibeth' } },
+{ preamble: "Daeth Huw at gnaer.<br>At beth ddaeth o?",
+data: { mut: '1', ambig: '0', item: 'gnaer' } },
+{ preamble: "Mae Gareth yn aros am dimorth.<br>Am beth mae o'n aros?",
+data: { mut: '1', ambig: '0', item: 'dimorth' } },
+{ preamble: "Mae Alys yn chwilio am bral.<br>Am beth mae hi'n chwilio?",
+data: { mut: '1', ambig: '0', item: 'bral' } },
+{ preamble: "Mae Ifan yn gwrando ar binath.<br>Beth mae o'n clywed?",
+data: { mut: '1', ambig: '0', item: 'binath' } },
+{ preamble: "Mae Sioned yn edrych ar domb.<br>Beth mae hi'n gweld?",
+data: { mut: '1', ambig: '0', item: 'domb' } },
+{ preamble: "Oedd Meredydd wedi sylwi ar dralt.<br>Beth oedd o wedi sylwi arno?",
+data: { mut: '1', ambig: '0', item: 'dralt' } },
+{ preamble: "Rhaid iddyn nhw gadw llygad ar degr.<br>Beth mae angen iddyn nhw gadw llygad arno?",
+data: { mut: '1', ambig: '0', item: 'degr' } },
+{ preamble: "Roedd Gwen yn edrych ar bition.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '1', ambig: '0', item: 'bition' } },
+{ preamble: "Does dim sôn am gept.<br>Am beth does dim sôn?",
+data: { mut: '1', ambig: '0', item: 'gept' } },
+{ preamble: "Roedd Ffion yn meddwl am doip.<br>Am beth oedd hi'n meddwl?",
+data: { mut: '1', ambig: '0', item: 'doip' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am bon.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '1', ambig: '0', item: 'bon' } },
+{ preamble: "Roedd Lowri yn poeni am glant.<br>Am beth oedd hi'n poeni?",
+data: { mut: '1', ambig: '0', item: 'glant' } },
+{ preamble: "Mae Dylan eisiau dysgu am greng.<br>Am beth mae o eisiau dysgu?",
+data: { mut: '1', ambig: '0', item: 'greng' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am dem.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '1', ambig: '0', item: 'dem' } },
+{ preamble: "Gofynodd Bronwen am bes.<br>Am beth ofynnodd hi?",
+data: { mut: '1', ambig: '0', item: 'bes' } },
+{ preamble: "Daeth Huw at geng.<br>At beth ddaeth o?",
+data: { mut: '1', ambig: '0', item: 'geng' } },
+{ preamble: "Mae Gareth yn aros am raes.<br>Am beth mae o'n aros?",
+data: { mut: '1', ambig: '1', item: 'raes' } },
+{ preamble: "Mae Alys yn chwilio am rol.<br>Am beth mae hi'n chwilio?",
+data: { mut: '1', ambig: '1', item: 'rol' } },
+{ preamble: "Mae Ifan yn gwrando ar laec.<br>Beth mae o'n clywed?",
+data: { mut: '1', ambig: '1', item: 'laec' } },
+{ preamble: "Mae Sioned yn edrych ar ror.<br>Beth mae hi'n gweld?",
+data: { mut: '1', ambig: '1', item: 'ror' } },
+{ preamble: "Oedd Meredydd wedi sylwi ar rilm.<br>Beth oedd o wedi sylwi arno?",
+data: { mut: '1', ambig: '1', item: 'rilm' } },
+{ preamble: "Rhaid iddyn nhw gadw llygad ar raing.<br>Beth mae angen iddyn nhw gadw llygad arno?",
+data: { mut: '1', ambig: '1', item: 'raing' } },
+{ preamble: "Roedd Gwen yn edrych ar lar.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '1', ambig: '1', item: 'lar' } },
+{ preamble: "Does dim sôn am laithr.<br>Am beth does dim sôn?",
+data: { mut: '1', ambig: '1', item: 'laithr' } },
+{ preamble: "Roedd Ffion yn meddwl am lamos.<br>Am beth oedd hi'n meddwl?",
+data: { mut: '1', ambig: '1', item: 'lamos' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am rawl.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '1', ambig: '1', item: 'rawl' } },
+{ preamble: "Roedd Lowri yn poeni am lir.<br>Am beth oedd hi'n poeni?",
+data: { mut: '1', ambig: '1', item: 'lir' } },
+{ preamble: "Mae Dylan eisiau dysgu am laep.<br>Am beth mae o eisiau dysgu?",
+data: { mut: '1', ambig: '1', item: 'laep' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am lec.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '1', ambig: '1', item: 'lec' } },
+{ preamble: "Gofynodd Bronwen am lic.<br>Am beth ofynnodd hi?",
+data: { mut: '1', ambig: '1', item: 'lic' } },
+{ preamble: "Daeth Huw at ral.<br>At beth ddaeth o?",
+data: { mut: '1', ambig: '1', item: 'ral' } },
+{ preamble: "Mae Gareth yn aros am ler.<br>Am beth mae o'n aros?",
+data: { mut: '1', ambig: '1', item: 'ler' } },
+{ preamble: "Mae Alys yn chwilio am lostr.<br>Am beth mae hi'n chwilio?",
+data: { mut: '1', ambig: '1', item: 'lostr' } },
+{ preamble: "Mae Ifan yn gwrando ar lorm.<br>Beth mae o'n clywed?",
+data: { mut: '1', ambig: '1', item: 'lorm' } },
+{ preamble: "Mae Sioned yn edrych ar rens.<br>Beth mae hi'n gweld?",
+data: { mut: '1', ambig: '1', item: 'rens' } },
+{ preamble: "Oedd Meredydd wedi sylwi ar rait.<br>Beth oedd o wedi sylwi arno?",
+data: { mut: '1', ambig: '1', item: 'rait' } },
+{ preamble: "Rhaid iddyn nhw gadw llygad ar losion.<br>Beth mae angen iddyn nhw gadw llygad arno?",
+data: { mut: '1', ambig: '1', item: 'losion' } },
+{ preamble: "Roedd Gwen yn edrych ar lag.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '1', ambig: '1', item: 'lag' } },
+{ preamble: "Does dim sôn am ligen.<br>Am beth does dim sôn?",
+data: { mut: '1', ambig: '1', item: 'ligen' } },
+{ preamble: "Roedd Ffion yn meddwl am reig.<br>Am beth oedd hi'n meddwl?",
+data: { mut: '1', ambig: '1', item: 'reig' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am lirt.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '1', ambig: '1', item: 'lirt' } },
+{ preamble: "Roedd Lowri yn poeni am lat.<br>Am beth oedd hi'n poeni?",
+data: { mut: '1', ambig: '1', item: 'lat' } },
+{ preamble: "Mae Dylan eisiau dysgu am loth.<br>Am beth mae o eisiau dysgu?",
+data: { mut: '1', ambig: '1', item: 'loth' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am resab.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '1', ambig: '1', item: 'resab' } },
+{ preamble: "Gofynodd Bronwen am lep.<br>Am beth ofynnodd hi?",
+data: { mut: '1', ambig: '1', item: 'lep' } },
+{ preamble: "Daeth Huw at reag.<br>At beth ddaeth o?",
+data: { mut: '1', ambig: '1', item: 'reag' } },
+{ preamble: "Mae Gareth yn aros am ystafell.<br>Am beth mae o'n aros?",
+data: { mut: '0', ambig: '0', item: 'ystafell' } },
+{ preamble: "Mae Alys yn chwilio am ysgol.<br>Am beth mae hi'n chwilio?",
+data: { mut: '0', ambig: '0', item: 'ysgol' } },
+{ preamble: "Mae Ifan yn gwrando ar aderyn.<br>Beth mae o'n clywed?",
+data: { mut: '0', ambig: '0', item: 'aderyn' } },
+{ preamble: "Mae Sioned yn edrych ar sosban.<br>Beth mae hi'n gweld?",
+data: { mut: '0', ambig: '0', item: 'sosban' } },
+{ preamble: "Oedd Meredydd wedi sylwi ar neidr.<br>Beth oedd o wedi sylwi arno?",
+data: { mut: '0', ambig: '0', item: 'neidr' } },
+{ preamble: "Rhaid iddyn nhw gadw llygad ar nos.<br>Beth mae angen iddyn nhw gadw llygad arno?",
+data: { mut: '0', ambig: '0', item: 'nos' } },
+{ preamble: "Roedd Gwen yn edrych ar swyddfa.<br>Beth oedd hi'n edrych arno?",
+data: { mut: '0', ambig: '0', item: 'swyddfa' } },
+{ preamble: "Does dim sôn am gi.<br>Am beth does dim sôn?",
+data: { mut: '1', ambig: '0', item: 'gi' } },
+{ preamble: "Roedd Ffion yn meddwl am dŷ.<br>Am beth oedd hi'n meddwl?",
+data: { mut: '1', ambig: '0', item: 'dy' } },
+{ preamble: "Oedd Carys ac Alun yn siarad am gath.<br>Am beth oedden nhw'n siarad?",
+data: { mut: '1', ambig: '0', item: 'gath' } },
+{ preamble: "Roedd Lowri yn poeni am bêl.<br>Am beth oedd hi'n poeni?",
+data: { mut: '1', ambig: '0', item: 'bel' } },
+{ preamble: "Mae Dylan eisiau dysgu am gwrs.<br>Am beth mae o eisiau dysgu?",
+data: { mut: '1', ambig: '0', item: 'gwrs' } },
+{ preamble: "Doedd Dafydd ddim wedi talu am fynydd.<br>Am beth doedd o ddim wedi talu?",
+data: { mut: '1', ambig: '0', item: 'fynydd' } },
+{ preamble: "Gofynodd Bronwen am fwrdd.<br>Am beth ofynnodd hi?",
+data: { mut: '1', ambig: '0', item: 'fwrdd' } },
+{ preamble: "Daeth Huw at babell.<br>At beth ddaeth o?",
+data: { mut: '1', ambig: '0', item: 'babell' } }
+    ];
+
+  var all_trials = jsPsych.randomization.repeat(test_stimuli, 1);
+
+  var test_block = {
+	type: "survey-text",
+	choices: ['none'],
+	questions: [""],
+	response_ends_trial: true,
+	timeline: all_trials
+  };
+
+var debrief_block = {
+	type: 'html',
+	url: 'thank_you1.html',
+	on_finish: function() {exit()}
+};
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+var save_data = {
+	type: 'call-function',
+	func: function(data){
+           saveData('backform-'+subject_id+'.csv', jsPsych.data.dataAsCSV());
+            }
+	};
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(consent_block);
+  timeline.push(initials_block);
+  timeline.push(welcome_block);
+  timeline.push(first_page);
+  timeline.push(history_page_welsh);
+  timeline.push(history_page_english);
+  timeline.push(use_page_1);
+  timeline.push(use_page_2);
+  timeline.push(use_page_3);
+  timeline.push(use_page_4);
+  timeline.push(use_page_5);
+  timeline.push(proficiency_page_welsh);
+  timeline.push(proficiency_page_english);
+  timeline.push(attitudes_page_welsh);
+  timeline.push(attitudes_page_english);
+  timeline.push(instructions_block);
+  timeline.push(test_block);
+  timeline.push(save_data);
+  timeline.push(debrief_block);
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline //,
+	//on_finish: function(){ saveData('backform-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+});
+</script>
+</html>

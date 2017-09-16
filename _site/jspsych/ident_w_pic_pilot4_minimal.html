@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-button-response.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+<style>
+img.size {
+    height: 50%;
+    width: 50%;
+}
+</style>
+  <body>
+  </body>
+<script>
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Welcome to the experiment!</p>" +
+		"<p>First you will answer some basic questions" +
+		" about your language background with Welsh and English.</p>" +
+		"Press any key to begin."
+  };
+
+/*define consent block*/
+
+var check_consent = function(elem) {
+  if ($('#consent_checkbox').is(':checked')) {
+    return true;
+  }
+  else {
+    alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
+    return false;
+  }
+  return false;
+};
+
+// declare the consent block
+var consent_block = {
+  type:'html',
+  url: "consent_3.html",
+  cont_btn: "start",
+  check_fn: check_consent
+};
+
+//define initials block //
+var initials_block = {
+  type: 'survey-text',
+  questions: ["Please type your initials in the box."],
+  choices: ['enter']
+};
+
+    /* define welcome message block */
+    var welcome_block = {
+      type: "text",
+      text: "Welcome to the experiment. Press any key to begin."
+};
+
+// typed responses
+var first_page = {
+  type: 'survey-text',
+  questions: ["How old are you?", "What gender do you identify with?", "Current place of residence (City, Country)", "What is your highest level of formal education?", "What hand do you write with?"],
+};
+
+// page variables
+var qs_lang_history_welsh = [
+	"At what age did you <b>start learning</b> Welsh?",
+	"At what age did you <b>start to feel comfortable</b> using Welsh?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in Welsh?",
+	"How many years have you spent in <b>a country/region</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a family</b> where Welsh is spoken?",
+	"How many years have you spent in <b>a work environment</b> where Welsh is spoken?"
+	];
+
+var qs_lang_history_english = [
+	"At what age did you <b>start learning</b> English?",
+	"At what age did you <b>start to feel comfortable</b> using English?",
+	"How many years of <b>classes (grammar, history, math, etc.)</b> have you had in English?",
+	"How many years have you spent in <b>a country/region</b> where English is spoken?",
+	"How many years have you spent in <b>a family</b> where English is spoken?",
+	"How many years have you spent in <b>a work environment</b> where English is spoken?"
+];
+
+// response scales
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var lbq_check = {
+type: 'button-response',
+    stimulus: '<p>Have you completed a language background questionnaire during a previous experiment on our website?</p>',
+    is_html: true,
+    choices: ['I have NOT completed the questionnaire.', 'I have already completed the questionnaire']
+};
+
+var lbq_if_node = {
+    timeline: [first_page, history_page_welsh, history_page_english],
+    conditional_function: function(){
+        var data = jsPsych.data.getLastTrialData();
+        if(data.button_pressed == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+  /* define PICTURE instructions block */
+  var instructions_pic_block = {
+	type: "text",
+	text: "picture instructions",
+	timing_post_trial: 500
+  };
+
+  /* define WORD instructions block */
+  var instructions_word_block = {
+		type: "text",
+		text: 'word instructions',
+    		timing_post_trial: 500
+  };
+
+  /* define PIC-NAMING instructions block */
+  var instructions_pic_naming_block = {
+    type: "text",
+text: "<p>Thanks! Before we get started, can you help us name these pictures?</p><p>Just click the button next to the choice that shows the correct <strong>first</strong> and <strong>last</strong> letters of the Welsh word that best describes the picture.</p>" +
+        "<p>For example, if you saw this picture:</p>" +
+        "<img class='size' src='img/cath.jpg' width='300'/>" +
+        "<p>You would click the button that showed C__TH.</p>" +
+        "<p>Press ENTER to begin.</p>",
+    timing_post_trial: 500
+  };
+
+  var pic_naming_stimuli = [
+{
+stimulus: 'img/lon.jpg',
+choices: ['S__A', 'N__B', 'L__N', 'G__FF'],
+data: { response: 'L__N' } },
+{
+stimulus: 'img/dyn.jpg',
+choices: ['D__N', 'P__N', 'FF__L', 'M__T'],
+data: { response: 'D__N' } },
+{
+stimulus: 'img/tim.jpg',
+choices: ['TH__W', 'G__FF', 'C__N', 'T__M'],
+data: { response: 'T__M' } },
+{
+stimulus: 'img/bryn.jpg',
+choices: ['T__W', 'B__N', 'C__M', 'RH__DD'],
+data: { response: 'B__N' } },
+{
+stimulus: 'img/ton.jpg',
+choices: ['D__R', 'T__N', 'W__T', 'M__R'],
+data: { response: 'T__N' } }
+  ];
+
+  /* define PICTURE NAMING block */
+
+var pic_naming_block = {
+    type: 'button-response',
+    prompt: "<p class='center-content'>What letters does this word begin and end with in Welsh?</p>",
+    button_html: "<a class='jspsych-btn'>%choice%</a>",
+    response_ends_trial: true,
+    timeline: pic_naming_stimuli
+  };
+
+  /* define PICTURE block */
+
+  var pic_stimuli = [
+{
+stimulus: "sounds/y_1_1.wav",
+prompt: ['<img src="img/dyn-bryn.pdf" />'],
+data: { response: 'y_1_1.wav' } },
+{
+stimulus: "sounds/y_1_9.wav",
+prompt: ['<img src="img/dyn-bryn.pdf" />'],
+data: { response: 'y_1_9.wav' } },
+{
+stimulus: "sounds/y_9_9.wav",
+prompt: ['<img src="img/dyn-bryn.pdf" />'],
+data: { response: 'y_9_9.wav' } },
+{
+stimulus: "sounds/y_9_1.wav",
+prompt: ['<img src="img/dyn-bryn.pdf" />'],
+data: { response: 'y_9_1.wav' } }
+  ];
+
+var pic_trials = jsPsych.randomization.repeat(pic_stimuli, 1);
+
+var pic_block = {
+	type: "single-audio",
+	choices: [37, 39],
+	timing_response: -1,
+	timing_post_trial: 1500,
+	response_ends_trial: true,
+	is_html: true,
+	on_finish: function(data){
+		var correct = false;
+			if(data.response == 'long' && data.key_press == 37 && data.rt > -1){
+				correct = true;
+		} else if(data.response == 'short' && data.key_press == 39 && data.rt > -1){
+			correct = true;
+		}
+      jsPsych.data.addDataToLastTrial({correct: correct});
+    },
+    timeline: pic_trials
+  };
+
+  /* define WORD block */
+
+  var word_stimuli = [
+{
+stimulus: "sounds/y_1_1.wav",
+prompt: ['<img src="img/tyn_orth_comp.jpg" />'],
+data: { response: 'y_1_1.wav' } },
+{
+stimulus: "sounds/y_1_9.wav",
+prompt: ['<img src="img/tyn_orth_comp.jpg" />'],
+data: { response: 'y_1_9.wav' } },
+{
+stimulus: "sounds/y_9_9.wav",
+prompt: ['<img src="img/tyn_orth_comp.jpg" />'],
+data: { response: 'y_9_9.wav' } },
+{
+stimulus: "sounds/y_9_1.wav",
+prompt: ['<img src="img/tyn_orth_comp.jpg" />'],
+data: { response: 'y_9_1.wav' } }
+  ];
+
+var word_trials = jsPsych.randomization.repeat(word_stimuli, 1);
+
+var word_block = {
+	type: "single-audio",
+	choices: [37, 39],
+	timing_response: -1,
+	timing_post_trial: 1500,
+	response_ends_trial: true,
+	is_html: true,
+	on_finish: function(data){
+		var correct = false;
+			if(data.response == 'long' && data.key_press == 37 && data.rt > -1){
+				correct = true;
+		} else if(data.response == 'short' && data.key_press == 39 && data.rt > -1){
+			correct = true;
+		}
+      jsPsych.data.addDataToLastTrial({correct: correct});
+    },
+    timeline: word_trials
+  };
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+  jsPsych.data.addProperties({
+  subject: subject_id//,
+  //condition: condition_assignment
+}); 
+
+var save_data = {
+	type: 'call-function',
+	func: function(data){
+           saveData('ident_pic-'+subject_id+'.csv', jsPsych.data.dataAsCSV());
+            }
+	};
+
+var debrief_block = {
+	type: 'html',
+	url: 'thank_you1.html',
+	on_finish: function() {exit()}
+};
+
+    /* create experiment timeline array */
+    var timeline = [];
+timeline.push(welcome_block);
+timeline.push(consent_block);
+timeline.push(initials_block);
+    timeline.push(lbq_check);
+    timeline.push(lbq_if_node);
+    timeline.push(instructions_pic_naming_block);
+    timeline.push(pic_naming_block);
+    timeline.push(instructions_pic_block);
+    timeline.push(pic_block);
+    timeline.push(instructions_word_block);
+    timeline.push(word_block);
+    timeline.push(save_data);
+    timeline.push(debrief_block);
+
+    /* start the experiment */
+    jsPsych.init({
+      timeline: timeline
+    });
+  </script>
+</html>
