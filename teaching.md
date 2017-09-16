@@ -14,7 +14,7 @@ Linguistics 315 - *Phonology* (teaching assistant) - Spring 2015
 
 Linguistics 465 - *Pragmatics* (teaching assistant) - Fall 2014
 
-Linguistics 210 - *American Indian Linguistics* (co-instructor) - Spring 2014
+Linguistics 210 - *American Indian Linguistics* (Instructor) - Spring 2014
 
-Linguistics 320 - *Language and Society* (co-instructor, solo
-instructor online) - Fall 2013, Summer 2014
+Linguistics 320 - *Language and Society* (Instructor, implemented in
+person and online) - Fall 2013, Summer 2014

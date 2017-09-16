@@ -12,14 +12,8 @@ worth it.
 
 <b>Current favorite weird thing in Welsh</b>:
 'Valuable' is *gwerthfawr*, but 'invaluable' is *amhrisiadwy*. This
-makes sense if you actually decompose them both, I suppose, but I'm going to stay bitter about it for a
+makes sense if you actually decompose them both, but I'm going to stay bitter about it for a
 little while.
-
-<b>Blog</b>:
-While I'm in Argentina doing pilot fieldwork for my dissertation, I'm
-trying to keep a blog in Welsh, which you can read [here]({{ site.url }}/blog), if you want
-to try to muddle through my poor grammar or run it through google
-translate!
 
 If you're interested in hearing my take on applying for fellowships
 and grants, check out my blog post for UA's GradFunding newsletter [here](https://grad.arizona.edu/ofce/articles/2017/02/spotlight-elise-bell-eapsi)!
