@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Language Background</title>
+    
+    <script src="jquery-1-11-1-min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+  </head>
+  <body>
+  </body>
+<script>
+
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Croeso!</p>" +
+		"<p>Mae'r arolwg yn cynnwys 19 cwestiwn a bydd yn cymryd llai na 10 munud i'w gwblhau. Nid prawf yw hwn, a does gan y cwestiynau ddim atebion cywir nag anghywir. Os gwelwch yn dda, darllenwch bob cwestiwn a rhowch eich atebion yn ofalus er mwyn sicrhau llwyddiant i'r astudiaeth.</p>" +
+		"Cliciwch 'space' er mwyn dechrau."
+  };
+
+// typed responses	
+var first_page = {	
+  type: 'survey-text',	
+  questions: ["Enw:", "Oed:", "Dyn/Dynes/arall:", "Man preswylio cyfredol (Dinas/Sir, Gwlad):", "Ieithoedd eraill bod chi'n siarad:"],	
+};	
+
+// page variables
+var edu_history = [	
+	"Lefel uchaf o addysg ffurfiol:"
+	];
+		
+var qs_lang_history_welsh = [	
+	"Pa oed <b>ddechreuoch chi ddysgu</b> Cymraeg?",
+	"Pa oed <b>ddechreuoch chi deimlo'n gyfforddus</b> yn siarad Cymraeg?",
+	"Faint o flynyddoedd o <b>addysg (gramadeg, hanes, mathemateg, ac ati)</b> gafoch chi yn Gymraeg (ysgol gynradd drwy brifysgol)?",
+	"Am faint o flynyddoedd ydych chi wedi bod mewn <b>gwlad/ardal</b> lle mae Cymraeg yn cael ei siarad?",
+	"Am faint o flynyddoedd ydych chi bod mewn <b>teulu</b> lle mae Cymraeg yn cael ei siarad?",
+	"Am faint o flynyddoedd ydych chi bod mewn <b>amgylchedd gwaith</b> lle mae Cymraeg yn cael ei siarad?"
+	];
+	
+var qs_lang_history_english = [	
+	"Pa oed <b>ddechreuoch chi ddysgu</b> Sbaeneg?",
+	"Pa oed <b>ddechreuoch chi deimlo'n gyfforddus</b> yn siarad Sbaeneg?",
+	"Faint o flynyddoedd o <b>addysg (gramadeg, hanes, mathemateg, ac ati)</b> gafoch chi yn Sbaeneg (ysgol gynradd drwy brifysgol)?",
+	"Am faint o flynyddoedd ydych chi wedi bod mewn <b>gwlad/ardal</b> lle mae Sbaeneg yn cael ei siarad?",
+	"Am faint o flynyddoedd ydych chi bod mewn <b>teulu</b> lle mae Sbaeneg yn cael ei siarad?",
+	"Am faint o flynyddoedd ydych chi bod mewn <b>amgylchedd gwaith</b> lle mae Sbaeneg yn cael ei siarad?"
+	];
+	
+var qs_lang_use_1 = [	
+	"1a: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>Cymraeg gyda ffrindiau</b>?",
+	"1b: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>Sbaeneg gyda ffrindiau</b>?",
+	"1c: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>ieithoedd eraill gyda ffrindiau</b>?"
+	];
+	
+var qs_lang_use_2 = [	
+	"2a: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>Cymraeg gyda'ch teulu</b>?",
+	"2b: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>Sbaeneg gyda'ch teulu</b>?",
+	"2c: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>ieithoedd eraill gyda'ch teulu</b>?"
+	];
+	
+var qs_lang_use_3 = [	
+	"3a: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>Cymraeg yn yr ysgol / y gwaith</b>?",
+	"3b: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>Sbaeneg yn yr ysgol / y gwaith</b>?",
+	"3c: Mewn wythnos arferol, am ba ganran o'ch amser ydych chi'n defnyddio <b>ieithoedd eraill yn yr ysgol / y gwaith</b>?"
+	];
+	
+var qs_lang_use_4 = [	
+	"4a: Pan ydych chi'n siarad wrthoch chi'ch hunan, pa mor aml ydych chi'n siarad wrthoch chi'ch hunan yn <b>Cymraeg</b>?",
+	"4b: Pan ydych chi'n siarad wrthoch chi'ch hunan, pa mor aml ydych chi'n siarad wrthoch chi'ch hunan yn <b>Sbaeneg</b>?",
+	"4c: Pan ydych chi'n siarad wrthoch chi'ch hunan, pa mor aml ydych chi'n siarad wrthoch chi'ch hunan yn <b>ieithoedd eraill</b>?"
+	];
+	
+var qs_lang_use_5 = [	
+	"5a: Pan ydych chi'n cyfrif, pa mor aml ydych chi'n cyfrif yn <b>Cymraeg</b>?",
+	"5b: Pan ydych chi'n cyfrif, pa mor aml ydych chi'n cyfrif yn <b>Sbaeneg</b>?",
+	"5c: Pan ydych chi'n cyfrif, pa mor aml ydych chi'n cyfrif yn <b>ieithoedd eraill</b>?"
+	];
+	
+var qs_lang_prof_welsh = [	
+	"Pa mor dda ydych chi'n <b>siarad</b> Cymraeg?",
+	"Pa mor dda ydych chi'n <b>deallt</b> Cymraeg?",
+	"Pa mor dda ydych chi'n <b>darllen</b> Cymraeg?",
+	"Pa mor dda ydych chi'n <b>ysgrifennu</b> Cymraeg?"
+	];
+	
+var qs_lang_prof_english = [	
+	"Pa mor dda ydych chi'n <b>siarad</b> Sbaeneg?",
+	"Pa mor dda ydych chi'n <b>deallt</b> Sbaeneg?",
+	"Pa mor dda ydych chi'n <b>darllen</b> Sbaeneg?",
+	"Pa mor dda ydych chi'n <b>ysgrifennu</b> Sbaeneg?"
+	];
+	
+var qs_lang_att_welsh = [	
+	"Dw i'n teimlo fel fi fy hun wrth siarad Cymraeg.",
+	"Dw i'n uniaethu efo diwylliant siarad-Cymraeg.",
+	"Mae'n bwysig i mi ddefnyddio (neu ddefnyddio yn y diwedd) Cymraeg fel siaradwr mamiaith.",
+	"Dw i eisiau i bobl eraill feddwl mai siaradwr Cymraeg brodorol ydw i."
+	];
+	
+var qs_lang_att_english = [	
+	"Dw i'n teimlo fel fi fy hun wrth siarad Sbaeneg.",
+	"Dw i'n uniaethu efo diwylliant siarad-Sbaeneg.",
+	"Mae'n bwysig i mi ddefnyddio (neu ddefnyddio yn y diwedd) Sbaeneg fel siaradwr mamiaith.",
+	"Dw i eisiau i bobl eraill feddwl mai siaradwr Sbaeneg brodorol ydw i."
+	];
+	
+// response scales	
+var scale_edu = ["Llai nag ysgol uwchradd", "Ysgol uwchradd", "Rhywfaint o brifysgol", "Prifysgol (BA, BS)", "Rhywfaint o brifysgol raddedigion", "Gradd meistr", "PhD / MD / ayyb", "Arall"];	
+	
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];	
+	
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];	
+	
+var scale_well = ["0: ddim yn dda o gwbl", "1", "2", "3",
+"4", "5", "6: yn dda iawn"];	
+	
+var scale_agree = ["0: anghytuno", "1", "2", "3", "4", "5", "6: cytuno"];
+
+var edu_page = {
+    type: 'survey-multi-choice',
+    questions: edu_history,
+    options: [scale_edu]
+};
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var use_page_1 = {
+    type: 'survey-likert',
+    preamble: "Dylai cyfanswm defnydd iaith ar gyfer pob cwestiwn fod yn 100%.",
+    questions: qs_lang_use_1,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_2 = {
+    type: 'survey-likert',
+    preamble: "Dylai cyfanswm defnydd iaith ar gyfer pob cwestiwn fod yn 100%.",
+    questions: qs_lang_use_2,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_3 = {
+    type: 'survey-likert',
+    preamble: "Dylai cyfanswm defnydd iaith ar gyfer pob cwestiwn fod yn 100%.",
+    questions: qs_lang_use_3,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_4 = {
+    type: 'survey-likert',
+    preamble: "Dylai cyfanswm defnydd iaith ar gyfer pob cwestiwn fod yn 100%.",
+    questions: qs_lang_use_4,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_5 = {
+    type: 'survey-likert',
+    preamble: "Dylai cyfanswm defnydd iaith ar gyfer pob cwestiwn fod yn 100%.",
+    questions: qs_lang_use_5,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_welsh,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var proficiency_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_english,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_att_welsh,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+var attitudes_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_att_english,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>Diolch yn fawr - plis gadewch i mi wybod bod chi wedi gorffen.</p>",
+    timing_post_trial: 2000
+};
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+var save_data = {
+	type: 'call-function',
+	func: function(data){
+           saveData('blp-cym-'+subject_id+'.csv', jsPsych.data.dataAsCSV());
+}
+};
+
+var local_save = {
+	type: 'call-function',
+func: function(data){
+jsPsych.data.localSave('blp-cym-'+subject_id+'.csv', 'csv');
+            }
+};
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(welcome_block);
+  timeline.push(first_page);
+  timeline.push(edu_page);
+  timeline.push(history_page_welsh);
+  timeline.push(history_page_english);
+  timeline.push(use_page_1);
+  timeline.push(use_page_2);
+  timeline.push(use_page_3);
+  timeline.push(use_page_4);
+  timeline.push(use_page_5);
+  timeline.push(proficiency_page_welsh);
+  timeline.push(proficiency_page_english);
+  timeline.push(attitudes_page_welsh);
+  timeline.push(attitudes_page_english);
+  timeline.push(local_save);
+  timeline.push(instructions_block);
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline //,
+	//on_finish: function(){ saveData('blp-cym-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+});
+</script>
+</html>

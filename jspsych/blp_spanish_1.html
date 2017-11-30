@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Language Background</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-html.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-audio.js" type="text/javascript"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+  </head>
+  <body>
+  </body>
+<script>
+
+
+
+  /* define welcome message block */
+  var welcome_block = {
+    type: "text",
+    text: "<p>Bienvenidos!</p>" +
+		"<p>a encuesta contiene 19 preguntas y le llevará menos de 10 minutos para completar. Esto no es una prueba, por tanto no hay respuestas correctas ni incorrectas. Por favor conteste cada pregunta y responda con sinceridad, ya que solamente así se podrá garantizar el éxito de esta investigación.</p>" +
+		"Hacer clic en 'space' para empezar."
+  };
+
+// typed responses	
+var first_page = {	
+  type: 'survey-text',	
+  questions: ["Nombre:", "Edad:", "Hombre/Mujer/otro:", "Lugar de residencia actual (Ciudad, País):"],	
+};	
+
+// page variables
+var edu_history = [	
+	"Nivel más alto de formación académica:"
+	];
+		
+var qs_lang_history_welsh = [	
+	"¿A qué edad <b>empezó a aprender</b> Galés?",
+	"¿A qué edad <b>empezó a sentirse cómodo</b> usando Galés?",
+	"¿Cuántos años de <b>clases (gramática, historia, matemáticas, etc.)</b> ha tenido en Galés (desde la escuela primaria a la universidad)?",
+	"¿Cuántos años ha pasado en un <b>país/región</b> donde se hablan Galés?",
+	"¿Cuántos años ha pasado en <b>familia</b> hablando Galés?",
+	"¿Cuántos años ha pasado en <b>un ambiente de trabajo</b> donde se hablan Galés?"
+	];
+	
+var qs_lang_history_english = [	
+	"¿A qué edad <b>empezó a aprender</b> Castellano?",
+	"¿A qué edad <b>empezó a sentirse cómodo</b> usando Castellano?",
+	"¿Cuántos años de <b>clases (gramática, historia, matemáticas, etc.)</b> ha tenido en Castellano (desde la escuela primaria a la universidad)?",
+	"¿Cuántos años ha pasado en un <b>país/región</b> donde se hablan Castellano?",
+	"¿Cuántos años ha pasado en <b>familia</b> hablando Castellano?",
+	"¿Cuántos años ha pasado en <b>un ambiente de trabajo</b> donde se hablan Castellano?"
+	];
+	
+var qs_lang_use_1 = [	
+	"1a: En una semana normal, ¿qué porcentaje del tiempo usa <b>Galés con sus amigos</b>?",
+	"1b: En una semana normal, ¿qué porcentaje del tiempo usa <b>Castellano con sus amigos</b>?",
+	"1c: En una semana normal, ¿qué porcentaje del tiempo usa <b>otras lenguas con sus amigos</b>?"
+	];
+	
+var qs_lang_use_2 = [	
+	"2a: En una semana normal, ¿qué porcentaje del tiempo usa <b>Galés con su familia</b>?",
+	"2b: En una semana normal, ¿qué porcentaje del tiempo usa <b>Castellano con su familia</b>?",
+	"2c: En una semana normal, ¿qué porcentaje del tiempo usa <b>otras lenguas con su familia</b>?"
+	];
+	
+var qs_lang_use_3 = [	
+	"3a: En una semana normal, ¿qué porcentaje del tiempo usa <b>Galés en la escuela/el trabajo</b>?",
+	"3b: En una semana normal, ¿qué porcentaje del tiempo usa <b>Castellano en la escuela/el trabajo</b>",
+	"3c: En una semana normal, ¿qué porcentaje del tiempo usa <b>otras lenguas en la escuela/el trabajo</b>?"
+	];
+	
+var qs_lang_use_4 = [	
+	"4a: Cuando se habla a usted mismo, ¿con qué frecuencia <b>se habla a sí mismo en Galés</b>?",
+	"4b: Cuando se habla a usted mismo, ¿con qué frecuencia <b>se habla a sí mismo en Castellano</b>?",
+	"4c: Cuando se habla a usted mismo, ¿con qué frecuencia <b>se habla a sí mismo en otras lenguas</b>?"
+	];
+	
+var qs_lang_use_5 = [	
+	"5a: Cuando hace cálculos contando, ¿con qué frecuencia <b>cuenta en Galés</b>?",
+	"5b: Cuando hace cálculos contando, ¿con qué frecuencia <b>cuenta en Castellano</b>?",
+	"5c: Cuando hace cálculos contando, ¿con qué frecuencia <b>cuenta en otras lenguas</b>?"
+	];
+	
+var qs_lang_prof_welsh = [	
+	"¿Cómo <b>habla</b> en Galés?",
+	"¿Cómo <b>entiende</b> en Galés?",
+	"¿Cómo <b>lee</b> en Galés?",
+	"¿Cómo <b>escribe</b> en Galés?"
+	];
+	
+var qs_lang_prof_english = [	
+	"¿Cómo <b>habla</b> en Castellano?",
+	"¿Cómo <b>entiende</b> en Castellano?",
+	"¿Cómo <b>lee</b> en Castellano?",
+	"¿Cómo <b>escribe</b> en Castellano?"
+	];
+	
+var qs_lang_att_welsh = [	
+	"Me siento \'yo mismo\' cuando hablo en <b>Galés</b>.",
+	"Me identifico con una cultura <b>Galés-hablante</b>.",
+	"Es importante para mi usar (o llegar a usar) <b>Galés</b> como un hablante nativo.",
+	"Quiero que los demás piensen que soy un hablante nativo de <b>Galés</b>."
+	];
+	
+var qs_lang_att_english = [	
+	"Me siento \'yo mismo\' cuando hablo en <b>Castellano</b>.",
+	"Me identifico con una cultura <b>Hispanohablante</b>.",
+	"Es importante para mi usar (o llegar a usar) <b>Castellano</b> como un hablante nativo.",
+	"Quiero que los demás piensen que soy un hablante nativo de <b>Castellano</b>."
+	];
+	
+// response scales
+var scale_edu = ["Menos de la escuela secundaria",
+"Escuela secundaria",
+"Un poco de unversidad",
+"Universidad (diplomatura, licenciatura)",
+"Un poco de escuela graduada",
+"Máster",
+"Doctorado",
+"Otro"];
+	
+var scale_0_20 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20+"];	
+	
+var scale_0_100_perc = ["0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"];	
+	
+var scale_well = ["0: no muy bien", "1", "2", "3",
+"4", "5", "6: muy bien"];	
+	
+var scale_agree = ["0: no estoy de acuerdo", "1", "2", "3", "4", "5",
+"6: estoy de acuerdo"];
+
+var edu_page = {
+    type: 'survey-likert',
+    questions: edu_history,
+    labels: [scale_edu]
+};
+
+var history_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_history_welsh,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var history_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_history_english,
+    labels: [scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20, scale_0_20]
+};
+
+var use_page_1 = {
+    type: 'survey-likert',
+    preamble: "El uso total de todas las lenguas en cada pregunta debe llegar al 100%.",
+    questions: qs_lang_use_1,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_2 = {
+    type: 'survey-likert',
+    preamble: "El uso total de todas las lenguas en cada pregunta debe llegar al 100%.",
+    questions: qs_lang_use_2,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_3 = {
+    type: 'survey-likert',
+    preamble: "El uso total de todas las lenguas en cada pregunta debe llegar al 100%.",
+    questions: qs_lang_use_3,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_4 = {
+    type: 'survey-likert',
+    preamble: "El uso total de todas las lenguas en cada pregunta debe llegar al 100%.",
+    questions: qs_lang_use_4,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var use_page_5 = {
+    type: 'survey-likert',
+    preamble: "El uso total de todas las lenguas en cada pregunta debe llegar al 100%.",
+    questions: qs_lang_use_5,
+    labels: [scale_0_100_perc, scale_0_100_perc, scale_0_100_perc]
+};
+
+var proficiency_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_welsh,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var proficiency_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_prof_english,
+    labels: [scale_well, scale_well, scale_well, scale_well]
+};
+
+var attitudes_page_welsh = {
+    type: 'survey-likert',
+    questions: qs_lang_att_welsh,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+var attitudes_page_english = {
+    type: 'survey-likert',
+    questions: qs_lang_att_english,
+    labels: [scale_agree, scale_agree, scale_agree, scale_agree]
+};
+
+  /* define instructions block */
+  var instructions_block = {
+    type: "text",
+text: "<p>Muchas gracias - haga el favor de avisarme que ha terminado.</p>",
+    timing_post_trial: 2000
+};
+
+function saveData(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: 'saveData.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+  /* generate a random subject ID */
+var subject_id = Math.floor(Math.random()*100000);
+
+  /* record the condition assignment in the jsPsych data */
+  /* this adds a property called 'subject' to every trial */
+jsPsych.data.addProperties({
+  subject: subject_id
+}); 
+
+var save_data = {
+	type: 'call-function',
+	func: function(data){
+           saveData('blp-cym-'+subject_id+'.csv', jsPsych.data.dataAsCSV());
+}
+};
+
+var local_save = {
+	type: 'call-function',
+func: function(data){
+jsPsych.data.localSave('backform-'+subject_id+'.csv', 'csv');
+            }
+};
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(welcome_block);
+  timeline.push(first_page);
+  timeline.push(history_page_welsh);
+  timeline.push(history_page_english);
+  timeline.push(use_page_1);
+  timeline.push(use_page_2);
+  timeline.push(use_page_3);
+  timeline.push(use_page_4);
+  timeline.push(use_page_5);
+  timeline.push(proficiency_page_welsh);
+  timeline.push(proficiency_page_english);
+  timeline.push(attitudes_page_welsh);
+  timeline.push(attitudes_page_english);
+  timeline.push(local_save);
+  timeline.push(instructions_block);
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline //,
+	//on_finish: function(){ saveData('blp-spa-'+subject_id+'.csv', jsPsych.data.get().csv()); }
+});
+</script>
+</html>
