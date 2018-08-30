@@ -3,7 +3,8 @@ layout: default_3
 title: Research
 ---
 <h4>Research</h4>
-I'm a member of the
+
+I'm an alumna member of the
 [SPAM Lab](http://www.u.arizona.edu/~hammond/spamho.html) at the UA
 Department of Linguistics.
 

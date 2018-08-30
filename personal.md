@@ -10,10 +10,5 @@ latest non-textile and non-musical obsession is crockpot freezer
 meals, which take up way too much space in my fridge, but are entirely
 worth it.
 
-<b>Current favorite weird thing in Welsh</b>:
-'Valuable' is *gwerthfawr*, but 'invaluable' is *amhrisiadwy*. This
-makes sense if you actually decompose them both, but I'm going to stay bitter about it for a
-little while.
-
 If you're interested in hearing my take on applying for fellowships
 and grants, check out my blog post for UA's GradFunding newsletter [here](https://grad.arizona.edu/ofce/articles/2017/02/spotlight-elise-bell-eapsi)!
