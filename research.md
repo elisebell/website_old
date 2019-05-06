@@ -12,7 +12,7 @@ Department of Linguistics.
 My current research focuses on the production of Welsh vowel length by
 Spanish-Welsh bilinguals in Argentina.
 
-Results of a portion of my dissertation fieldwork in Argentina was
+Results of a portion of my dissertation fieldwork in Argentina were
 presented at LSA 2017 in Austin, TX as a [poster](http://elisebell.github.io/EBell_LSA2017_poster.pdf).
 
 Much of my previous and ongoing research has relied on the Bangor
@@ -27,16 +27,15 @@ how it is realized in the Northern Welsh dialect in Wales. I presented
 a [poster]({{ site.url }}/website/EBell_LSA2016_WelshSpanishBiling_poster.pdf)
 summarizing my results at the 2016 LSA Annual Meeting.
 
-I'm currently employed as a research assistant for [NSF grant #1453724](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1453724) 
-(SBE-RCUK: Experimental and Descriptive Investigations of Welsh (cym) Consonant Mutation).
+[//]: # I'm currently employed as a research assistant for [NSF grant #1453724](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1453724) (SBE-RCUK: Experimental and Descriptive Investigations of Welsh (cym) Consonant Mutation).
 
-<h4>North Australian Kriol</h4>
-I'm currently collaborating with Rikke Bundgaard-Nielsen and Brett
-Baker at the University of Melbourne on an investigation of the
-production of obstruent consonants by children acquiring North
-Australian Kriol. Results from that research were presented at the
-Australian Linguistic Society 2015 meeting, and at the Linguistic
-Society of America 2016 Annual Meeting (slides [here]({{ site.url }}/website/EBell_LSA2016_EAPSI_Kriol.pdf)).
+[//]: # <h4>North Australian Kriol</h4>
+[//]: # I'm currently collaborating with Rikke Bundgaard-Nielsen and Brett
+[//]: # Baker at the University of Melbourne on an investigation of the
+[//]: # production of obstruent consonants by children acquiring North
+[//]: # Australian Kriol. Results from that research were presented at the
+[//]: # Australian Linguistic Society 2015 meeting, and at the Linguistic
+[//]: # Society of America 2016 Annual Meeting (slides [here]({{ site.url }}/website/EBell_LSA2016_EAPSI_Kriol.pdf)).
 
 <h4>Scottish Gaelic</h4>
 I previously worked with Andrew Carnie and Mike Hammond (and others)

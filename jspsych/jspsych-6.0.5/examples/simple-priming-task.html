@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visual Masked Priming</title>
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-image-keyboard-response.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+  </head>
+  <body></body>
+  <script>
+
+    /* create timeline */
+    var timeline = [];
+
+    /* define welcome message trial */
+    var welcome_block = {
+      type: "html-keyboard-response",
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome_block);
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "<p>In this experiment, you will see a series of words.</p><p>" +
+          "If the word is a real word of English, press the letter Y for yes.</p><p>" +
+          "If the word is NOT a real word of English, press the letter N for no.</p><p>" +
+          "Try to respond as fast as you can.</p>" +
+          "<p>Press any key to begin.</p>",
+      post_trial_gap: 2000
+    };
+    timeline.push(instructions);
+
+    /* test trials */
+
+    var test_stimuli = [
+      { stimulus: "knit", mask: "##########", prime: "CROCHET", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "pants", mask: "##########", prime: "SLACKS", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "peak", mask: "##########", prime: "SUMMIT", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "weather", mask: "##########", prime: "CLIMATE", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "dishes", mask: "##########", prime: "PLATES", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "trash", mask: "##########", prime: "GARBAGE", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "gift", mask: "##########", prime: "PRESENT", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "film", mask: "##########", prime: "MOVIE", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "noise", mask: "##########", prime: "SOUND", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "kids", mask: "##########", prime: "CHILDREN", data: {test_part: "test", correct_response: "y", related: "rel"} },
+      { stimulus: "backpack", mask: "##########", prime: "DICE", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "hug", mask: "##########", prime: "LEVEL", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "sweater", mask: "##########", prime: "RAZOR", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "swamp", mask: "##########", prime: "TYPE", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "sale", mask: "##########", prime: "GRIP", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "buffalo", mask: "##########", prime: "MORALS", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "journey", mask: "##########", prime: "COLLEGE", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "luggage", mask: "##########", prime: "SANDPAPER", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "waiter", mask: "##########", prime: "DAD", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "curtains", mask: "##########", prime: "ASH", data: {test_part: "test", correct_response: "y", related: "unrel"} },
+      { stimulus: "smit", mask: "##########", prime: "SPOSCET", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "paked", mask: "##########", prime: "GRACKS", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "piek", mask: "##########", prime: "SPIMARD", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "wousser", mask: "##########", prime: "PLATCH", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "mirtes", mask: "##########", prime: "WANBAGE", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "trars", mask: "##########", prime: "CHELENT", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "gigh", mask: "##########", prime: "MUDIE", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "soule", mask: "##########", prime: "RIVIE", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "norbs", mask: "##########", prime: "CHIGSPEN", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "kire", mask: "##########", prime: "WICE", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "bickbock", mask: "##########", prime: "TUVEL", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "cug", mask: "##########", prime: "RAYAR", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "woenter", mask: "##########", prime: "SYPE", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "swass", mask: "##########", prime: "BRIP", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "sard", mask: "##########", prime: "RONALS", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "birvalo", mask: "##########", prime: "COLLIFT", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "jeefney", mask: "##########", prime: "SAIRCAVER", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "tuggard", mask: "##########", prime: "DOD", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "gaucer", mask: "##########", prime: "ANG", data: {test_part: "filler", correct_response: "n", related: "nonce"} },
+      { stimulus: "curtiths", mask: "##########", prime: "TYME", data: {test_part: "filler", correct_response: "n", related: "nonce"} }
+    ];
+
+    var fixation = {
+      type: 'html-keyboard-response',
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 750,
+      data: {test_part: 'fixation'}
+    }
+
+    var test = {
+      type: "html-keyboard-response",
+      stimulus: jsPsych.timelineVariable('stimulus'),
+      choices: ['y', 'n'],
+      data: jsPsych.timelineVariable('data'),
+      on_finish: function(data){
+        data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+      },
+    }
+
+    var mask = {
+      type: "html-keyboard-response",
+      stimulus: jsPsych.timelineVariable('mask'),
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 250,
+      data: {test_part: 'mask'}
+    }
+
+    var prime = {
+      type: "html-keyboard-response",
+      stimulus: jsPsych.timelineVariable('prime'),
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 50,
+      data: {test_part: 'prime'}
+    }
+
+    var test_procedure = {
+      timeline: [fixation, mask, prime, test],
+      timeline_variables: test_stimuli,
+      repetitions: 1,
+      randomize_order: true
+    }
+    timeline.push(test_procedure);
+
+    /* define debrief */
+
+    var debrief_block = {
+      type: "html-keyboard-response",
+      stimulus: function() {
+
+        var trials = jsPsych.data.get().filter({test_part: 'test'});
+        var correct_trials = trials.filter({correct: true});
+        var rel_trials = correct_trials.filter({related: 'rel'});
+        var unrel_trials = correct_trials.filter({related: 'unrel'});
+        var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+        var rt = Math.round(rel_trials.select('rt').mean());
+        var unrel_rt = Math.round(unrel_trials.select('rt').mean());
+
+        return "<p>You responded correctly on "+accuracy+"% of the real-word trials.</p>"+
+        "<p>Your average response time on related trials was "+rt+"ms.</p>"+
+        "<p>Your average response time on unrelated trials was "+unrel_rt+"ms.</p>"+
+        "<p>Press any key to complete the experiment. Thank you!</p>";
+
+      }
+    };
+    timeline.push(debrief_block);
+
+    /* start the experiment */
+    jsPsych.init({
+      timeline: timeline,
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    });
+  </script>
+</html>
